@@ -167,7 +167,7 @@ main {
     box-shadow: 2px 3px 6px #00000017;
 }
 
-input.error {
+#formSignUp input.error {
     border-color: red;
 }
 
@@ -193,7 +193,7 @@ button:hover {
 
 #jobButton {
     display: block;
-    width: 70%;
+    width: 40%;
     margin: 10px auto;
 }
 

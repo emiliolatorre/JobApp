@@ -1,6 +1,12 @@
 // General Variables
 const fragment = document.createDocumentFragment();
 
+
+/* *********************EVENTS**********************/
+
+document.addEventListener('DOMContentLoaded', () => validateForm());
+
+
 //**** SCRIPT HEADER.PUG **** */
 
 const hamburger = document.querySelector(".hamburger");
@@ -43,26 +49,29 @@ const updateJobList = (jobsFiltered) => {
     });
 }
 
+
 /**** SCRIPT SIGNUP.PUG *****/
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('.form');
+const validateForm = () => {
+    const form = document.getElementById('formSignUp');
+    const email = document.getElementById('email');
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('confirmPassword');
     const inputs = document.querySelectorAll('input[required]');
     const passwordInstructions = document.getElementById('instructions');
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
     passwordInstructions.style.display = 'none';
 
-    password.addEventListener('focus', function () {
+    password.addEventListener('focus',() => {
         passwordInstructions.style.display = 'block';
     });
 
-    password.addEventListener('blur', function () {
+    password.addEventListener('blur',() => {
         passwordInstructions.style.display = 'none';
     });
 
-    email.addEventListener('input', function () {
+    email.addEventListener('input',() => {
         if (email.checkValidity()) {
             email.classList.remove('error');
         } else {
@@ -70,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit',(event) => {
         let isValid = true;
 
         inputs.forEach(input => {
@@ -85,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!passwordRegex.test(password.value)) {
             password.classList.add('error');
             isValid = false;
+            passwordInstructions.style.display = 'block';
         } else {
             password.classList.remove('error');
         }
@@ -103,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window.onload = function() {
+    window.onload = () => {
         google.accounts.id.initialize({
             client_id: 'YOUR_GOOGLE_CLIENT_ID',
             callback: handleCredentialResponse
@@ -119,7 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Encoded JWT ID token: " + response.credential);
         // Aquí puedes enviar el token al servidor o manejarlo como necesites
     }
-});
+};
+
 
 //**** SCRIPT FOOTER.PUG **** */
 
