@@ -53,11 +53,11 @@ const updateJobList = (jobsFiltered) => {
 /**** SCRIPT SIGNUP.PUG *****/
 
 const validateForm = () => {
-    const form = document.getElementById('formSignUp');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
+    const form = document.querySelector('.card');
+    const email = document.querySelector('.email');
+    const password = document.querySelector('.password');
     const confirmPassword = document.getElementById('confirmPassword');
-    const inputs = document.querySelectorAll('input[required]');
+    const inputs = document.querySelectorAll('input');
     const passwordInstructions = document.getElementById('instructions');
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     

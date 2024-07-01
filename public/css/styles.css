@@ -75,7 +75,7 @@ header a {
 
 main {
     flex: 1;
-    padding: 20px 5% 30px 5%;
+    padding: 20px 10% 30px 10%;
     color: #262626;
     background-color: #fcfcfc;
 }
@@ -85,9 +85,10 @@ main {
     text-align: center;
 }
 
-#job, #formSignUpContainer, #formLogInContainer {
+.card {
     display: flex;
     flex-direction: column;
+    justify-items: center;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -95,44 +96,58 @@ main {
     margin: 20px 10px;
 }
 
-#jobTitle {
+.card p {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.card a {
+    color: rgb(0, 0, 100);
+    text-decoration: none;
+}
+
+.card a:hover {
+    text-decoration: underline;
+}
+
+.jobTitle {
     display: block;
     text-align: center;
     margin: 5px;
 }
 
-#description {
+.description {
     display: flex;
     flex-direction: column;
     margin: 5px;
 }
 
-#skillsTitle {
+.skillsTitle {
     display: flex;
     font-weight: bold;
     justify-content: center;
     margin-top: 5px;
 }
 
-#skills {
+.skills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 5px;
 }
 
-#skills p {
+.skills p {
     margin: 0 10px 0 10px;
 }
 
-#locationTitle {
+.locationTitle {
     display: flex;
     font-weight: bold;
     justify-content: center;
     margin: 5px;
 }
 
-#location {
+.location {
     display: flex;
     justify-content: center;
     margin: 5px;
@@ -156,7 +171,7 @@ main {
     box-shadow: 2px 3px 6px #00000017;
 }
 
-#formSignUp input, #formLogIn input {
+.card input, .textarea {
     display: block;
     align-items: center;
     width: 100%;
@@ -167,7 +182,11 @@ main {
     box-shadow: 2px 3px 6px #00000017;
 }
 
-#formSignUp input.error {
+.textarea {
+    resize: vertical;
+}
+
+.card input.error {
     border-color: red;
 }
 
@@ -185,13 +204,14 @@ button {
     color: white;
     transition: 0.4s ease all;
     cursor: pointer;
+    margin: 10px;
 }
 
 button:hover {
     background-color: rgb(50, 50, 184);
 }
 
-#jobButton {
+.jobButton {
     display: block;
     width: 40%;
     margin: 10px auto;
@@ -208,20 +228,6 @@ button:hover {
     border-radius: 4px;
     margin: 10px auto;
     box-shadow: 2px 3px 6px #00000017;
-}
-
-#formLogInContainer p {
-    text-align: left;
-    margin-top: 10px;
-}
-
-#formLogInContainer a {
-    color: rgb(0, 0, 100);
-    text-decoration: none;
-}
-
-#formLogInContainer a:hover {
-    text-decoration: underline;
 }
 
 footer {
@@ -305,6 +311,17 @@ footer h4 {
 
     .hamburger {
         display: none;
+    }
+    main {
+        flex: 1;
+        padding: 20px 20% 30px 20%;
+        color: #262626;
+        background-color: #fcfcfc;
+    }
+    #jobButton {
+        display: block;
+        width: 20%;
+        margin: 10px auto;
     }
 }
 
