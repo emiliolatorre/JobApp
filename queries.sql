@@ -38,11 +38,40 @@ VALUES
 
 -----------------------------------------------------------------------------------------------------------------------
 
--- Ejemplos de Queries
-SELECT * FROM public.users
+-- CRUD users
+-- CREATE
+INSERT INTO users(name, email, password, role)
+VALUES ('Prueba', 'prueba@gmail.com', '123456', 'user');
+-- READ
+SELECT *
+FROM users;
+-- UPDATE
+UPDATE users
+SET name = 'Prueba2',
+email = 'prueba2@gmail.com',
+password = '123456123456',
+role = 'user'
+WHERE email = 'prueba@gmail.com';
+-- DELETE
+DELETE FROM users
+WHERE email = 'prueba2@gmail.com';
 
-SELECT * FROM public.favorites
+-- CRXD favorites
+-- CREATE
+INSERT INTO favorites(user_id, job_id)
+VALUES(4, 2);
+-- READ
+SELECT *
+FROM favorites;
+-- DELETE
+DELETE FROM favorites
+WHERE user_id = 4 AND job_id = '2';
+
+-- Pruebas de Queries
+SELECT * FROM public.users;
+
+SELECT * FROM public.favorites;
 
 SELECT u.email, f.job_id
 FROM public.favorites f
-INNER JOIN public.users u ON u.user_id = f.user_id
+INNER JOIN public.users u ON u.user_id = f.user_id;

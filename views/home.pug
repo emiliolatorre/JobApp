@@ -18,7 +18,7 @@ html(lang="en")
                 label(for="searchTitle")
                     input#searchTitle(type='text' name='searchTitle' placeholder='Search by title...')
             section#jobsContainer
-                if jobs.length
+                if jobs.length > 0
                     each job in jobs
                         article#job(data-jobTitle=`${job.title}`)
                             h3#jobTitle #{job.title}
@@ -30,7 +30,9 @@ html(lang="en")
                             p#locationTitle Client Location:
                             p#location #{job.clientLocation}
                             a(href=`${job.url}` target='_blank')
-                                button#jobButton(type=button) Visit Offer                              
+                                button#jobButton(type=button) Visit Offer
+                else
+                    p No hay proyectos nuevos disponibles en estos momentos
 
                 
         include ./footer.pug
