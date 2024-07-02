@@ -5,11 +5,28 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="/css/styles.css")
+        link(rel='preconnect' href='https://fonts.googleapis.com')
+        link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+        link(href='https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap' rel='stylesheet')
         title Profile
     body
         include ./header.pug
         main
-            h2 Profile
-                
+            section
+                h3#profileSubtitle Edit Your Profile
+                form.card(action='/profile' method='post')
+                    label(for='name') Name:
+                    input.name(type='text' name='name' value=name)
+                    label(for='email') Email:
+                    input.email(type='email' name='email' value=email)
+                    label(for='password') Password:
+                    input.password(type='password' name='password')
+                    button#editButton(type='submit') Edit
+                    button#deleteButton(type='button') Delete Account
+
         include ./footer.pug
+
+        script.
+            const name = !{JSON.stringify(name)};
+            const email = !{JSON.stringify(email)};
         script(src="/js/scripts.js")

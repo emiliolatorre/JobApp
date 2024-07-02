@@ -26,19 +26,19 @@ html(lang="en")
             section#jobsContainer
                 if jobs.length > 0
                     each job in jobs
-                        article#job(data-jobTitle=`${job.title}`)
-                            h3#jobTitle #{job.title}
-                            p#description #{job.description}
-                            p#skillsTitle Skills:
-                            section#skills
+                        article.card(data-jobTitle=`${job.title}`)
+                            h3.jobTitle #{job.title}
+                            p.description #{job.description}
+                            p.skillsTitle Skills:
+                            section.skills
                                 each skill in job.skills
                                     p #{skill}
-                            p#locationTitle Client Location:
-                            p#location #{job.clientLocation}
+                            p.locationTitle Client Location:
+                            p.location #{job.client_location}
                             a(href=`${job.url}` target='_blank')
-                                button#jobButton(type=button) Visit Offer
+                                button.jobButton(type=button) Visit Offer
                 else
-                    p No hay proyectos nuevos disponibles en estos momentos
+                    p There are no new projects yet
 
                 
         include ./footer.pug

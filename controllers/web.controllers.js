@@ -1,6 +1,8 @@
 const jobService = require('../services/jobs.services');
 const scraper = require('../utils/scraper');
 const apiController = require('./jobs.controllers');
+const usersModels = require('../models/users.models');
+const favoritesModels = require('../models/favorites.models');
 
 const urlToptal = 'https://www.toptal.com/freelance-jobs/developers/jobs/';
 const urlFreelancer = 'https://www.freelancer.es/jobs/php_html_css_javascript_nodejs_java/?featured=true&languages=en';
@@ -80,7 +82,17 @@ const getLogin = async (req, res) => {
 }
 
 const getFavorites = async (req, res) => {
-    res.render("favorites.pug");
+    try {
+        // Obtener todos los trabajos actualizados desde la base de datos
+        let favoritesRead = await favoritesModels.readFavorites();
+        const favoritesID = favoritesRead.map(favorite => favorite.fav_id);
+        const favoritesData = await jobService.readJobsByID();
+
+        // invocar el servicio readJobsByID****************************
+        res.status(200).render("favorites.pug", { favorites: favoritesRead });
+    } catch (error) {
+        res.status(404).json({})
+    }
 }
 
 const getProfile = async (req, res) => {
@@ -88,11 +100,27 @@ const getProfile = async (req, res) => {
 }
 
 const getUsers = async (req, res) => {
-    res.render("users.pug");
+    try {
+        // Obtener todos los trabajos actualizados desde la base de datos
+        let usersRead = await usersModels.readUsers();
+
+        res.status(200).render("users.pug", { users: usersRead });
+    } catch (error) {
+        res.status(404).json({})
+    }
 }
 
 const getDashboard = async (req, res) => {
-    res.render("dashboard.pug");
+    try {
+        // Obtener todos los trabajos actualizados desde la base de datos
+        const keyword = req.body.keyword || null;
+        let updatedJobs = await jobService.readJobs(keyword);
+        console.log(updatedJobs)
+
+        res.status(200).render("dashboard.pug", { jobs: updatedJobs });
+    } catch (error) {
+        res.status(404).json({})
+    }
 }
 
 module.exports = {
