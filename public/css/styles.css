@@ -75,7 +75,7 @@ header a {
 
 main {
     flex: 1;
-    padding: 20px 10% 30px 10%;
+    margin: 20px 5% 30px 5%;
     color: #262626;
     background-color: #fcfcfc;
 }
@@ -158,18 +158,47 @@ main {
     margin: 10px;
 }
 
-#searchTitle {
+.searchHeader {
     display: flex;
-    flex-direction: column;
-    justify-items: center;
-    padding: 10px;
-    margin: 5px auto;
-    width: 80%; 
-    max-width: 600px; 
+    flex-direction: row;
+    padding: 15px 0 0 10px;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchKeyword, .searchSkill {
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.searchKeyword input {
+    min-width: 50px;
+}
+
+.searchSkill input {
+    min-width: 30px;
+
+}
+
+.searchKeyword input, .searchSkill input, .searchKeyword button, .searchSkill button {
+    max-height: 30px;
+    width: 80%;
+    align-items: center;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 2px 3px 6px #00000017;
 }
+
+.searchKeyword button, .searchSkill button {
+    min-width: none;
+    max-width: min-content;
+}
+
 
 .card input, .textarea {
     display: block;
@@ -312,12 +341,7 @@ footer h4 {
     .hamburger {
         display: none;
     }
-    main {
-        flex: 1;
-        padding: 20px 20% 30px 20%;
-        color: #262626;
-        background-color: #fcfcfc;
-    }
+   
     #jobButton {
         display: block;
         width: 20%;
