@@ -1,5 +1,3 @@
-const jobsController = require('.../controllers/jobs.controllers');
-
 // General Variables
 const fragment = document.createDocumentFragment();
 

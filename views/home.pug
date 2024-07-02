@@ -14,15 +14,13 @@ html(lang="en")
         main
             section
                 h3#mainSubtitle Find your next Freelance Project
-                article
-                //- label(for="searchTitle")
-                //-     input#searchTitle(type='text' name='searchTitle' placeholder='Search by title...')
-                form#searchKeyword(action="/search", method="POST")
-                    input(type="text", name="keyword", placeholder='Search by keyword...')
-                    button(type="submit") Search
-                form#searchSkill(action="/searchbyskill", method="POST")
-                    input(type="text", name="skill", placeholder='Search by skill...')
-                    button(type="submit") Search by Skill
+                article.searchHeader
+                    form.searchKeyword(action="/search", method="POST")
+                        input(type="text", name="keyword", placeholder='Search by keyword...')
+                        button(type="submit") Search
+                    form.searchSkill(action="/searchbyskill", method="POST")
+                        input(type="text", name="skill", placeholder='Search by skill...')
+                        button(type="submit") Search
             section#jobsContainer
                 if jobs.length > 0
                     each job in jobs
