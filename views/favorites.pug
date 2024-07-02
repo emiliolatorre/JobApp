@@ -27,6 +27,9 @@ html(lang="en")
                             p.location #{job.client_location}
                             a(href=`${job.url}` target='_blank')
                                 button.jobButton(type=button) Visit Offer
+                            a(href=`` target='_blank')
+                                button.jobButton(type=submit)
+                                    <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
                 else
                     p You don´t have any favorite projects yet
 
