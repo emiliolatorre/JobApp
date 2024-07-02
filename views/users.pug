@@ -5,11 +5,30 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="/css/styles.css")
+        link(rel='preconnect' href='https://fonts.googleapis.com')
+        link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+        link(href='https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap' rel='stylesheet')
         title Users
     body
         include ./header.pug
         main
-            h2 Users
-                
+            section
+                h3#usersSubtitle User List
+                each user in users
+                    article.card(data-userId=`${user.user_id}`)
+                        label(for='name') Name:
+                        input.name(type='text' name='name' value=`${user.name}`)
+                        label(for='email') Email:
+                        input.email(type='email' name='email' value=`${user.email}`)
+                        label(for='password') Password:
+                        input.password(type='password' name='password' value=`${user.password}`)
+                        label(for='role') Role:
+                        input.role(type='text' name='role' value=`${user.role}`)
+                        button#editUserButton(type='button') Edit
+                        button#deleteUserButton(type='button') Delete
+
         include ./footer.pug
+
+        script.
+            const users = !{JSON.stringify(users)};
         script(src="/js/scripts.js")
