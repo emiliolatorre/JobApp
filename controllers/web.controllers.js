@@ -12,7 +12,7 @@ const getHome = async (req, res) => {
         // Obtener todos los trabajos actualizados desde la base de datos
         const keyword = req.body.keyword || null;
         let updatedJobs = await jobService.readJobs(keyword);
-        console.log(updatedJobs)
+        
 
         res.status(200).render("home.pug", { jobs: updatedJobs });
     } catch (error) {
@@ -96,7 +96,14 @@ const getFavorites = async (req, res) => {
 }
 
 const getProfile = async (req, res) => {
-    res.render("profile.pug");
+    try {
+        const email = "hector@hector.com" //este email habrá que capturarlo del que esté logueado en su caso
+        //let usersRead = await usersModels.readUsers(email);     readUsers tiene que poder filtrar por email
+
+        res.status(200).render("users.pug", { users: usersRead });
+    } catch (error) {
+        res.status(404).json({})
+    }
 }
 
 const getUsers = async (req, res) => {
