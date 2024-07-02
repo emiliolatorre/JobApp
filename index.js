@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 const app = express(); // Initialize server
 const port = 3000;
 
@@ -7,6 +8,11 @@ const morgan = require('./middlewares/morgan');
 
 // Middlewares
 app.use(morgan(':method :url :status - :response-time ms :body'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(express.static('public')); // Serve static files
+app.use(express.json()); // Habilito recepción de JSON en servidor
 
 // Routes
 const webRoutes = require("./routes/web.routes");
@@ -18,8 +24,6 @@ const favoritesRoutes = require("./routes/favorites.routes");
 app.set('view engine', 'pug');
 app.set('views', './views');
 
-app.use(express.static('public')); // Serve static files
-app.use(express.json()); // Habilito recepción de JSON en servidor
 
 // API Routes
 app.use('/', webRoutes);

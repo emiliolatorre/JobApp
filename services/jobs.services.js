@@ -34,18 +34,86 @@ const createJob = async (title, description, skills, client_location, url, sourc
     };
 // createJob('Twitter embed from website shared to twitter','having issue with embedding correctly an image into our twitter share . see screenhots where image is missing, quick and easy task, looking forward to hearing from you', 'Twitter/X, HTML, JavaScript', 'Spain', 'hola.com', 'scraping', 'true');
 
-const readJobs = async () => {
+// const readJobs = async () => {
+//     try {
+//         const jobs = await Job
+//             .find()
+//             .select('title description skills client_location url source status -_id -__v')
+//         console.log(jobs);
+//         return jobs;
+//     } catch (error) {
+//         console.log('Error listing jobs:', error);
+//     }
+// };
+// readJobs();
+
+// READ 2.0
+const readJobs = async (keyword) => {
     try {
-        const jobs = await Job
-            .find()
+        let filter = {};
+        
+        if (keyword) {
+            filter = {
+                $or: [
+                    { title: { $regex: keyword, $options: 'i' } }, 
+                    { description: { $regex: keyword, $options: 'i' } },
+                    { client_location: { $regex: keyword, $options: 'i' } },
+                    { skills: { $regex: keyword, $options: 'i' } }
+                ]
+            };
+        }
+        
+        const jobs = await Job.find(filter)
             .select('title description skills client_location url source status -_id')
-        console.log(jobs);
+            .limit(10); // Limitar a los primeros 10 resultados
+        
         return jobs;
     } catch (error) {
         console.log('Error listing jobs:', error);
     }
 };
-// readJobs();
+
+// Filtro por skills
+const readJobsBySkill = async (skill) => {
+    try {
+        let filter = {};
+
+        if (skill) {
+            filter = {
+                skills: { $regex: skill, $options: 'i' }
+            };
+        }
+
+        const jobs = await Job.find(filter)
+            .select('title description skills client_location url source status -_id')
+            .limit(10); // Limitar a los primeros 10 resultados
+        
+        return jobs;
+    } catch (error) {
+        console.log('Error searching jobs by skill:', error);
+    }
+};
+
+// Filtro por objectId
+const readJobsByID = async (_id) => {
+    try {
+        // Verificar si el _id es válido y convertirlo a un ObjectId si es necesario
+        if (!mongoose.Types.ObjectId.isValid(_id)) {
+            throw new Error('Invalid ID format');
+        }
+
+        // Crear un filtro para buscar exactamente por _id
+        const filter = { _id: mongoose.Types.ObjectId(_id) };
+
+        const jobs = await Job.find(filter)
+            .select('title description skills client_location url source status -_id')
+            .limit(10); // Limitar a los primeros 10 resultados
+        
+        return jobs;
+    } catch (error) {
+        console.log('Error searching jobs by skill:', error);
+    }
+};
 
 const updateJob = async (filter, update) => {
     try {
@@ -85,6 +153,8 @@ const deleteJob = async (filter) => {
 module.exports = {
     createJob,
     readJobs,
+    readJobsBySkill,
+    readJobsByID,
     updateJob,
     deleteJob
 };

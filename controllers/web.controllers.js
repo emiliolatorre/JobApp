@@ -8,8 +8,9 @@ const urlFreelancer = 'https://www.freelancer.es/jobs/php_html_css_javascript_no
 const getHome = async (req, res) => {
     try {
         // Obtener todos los trabajos actualizados desde la base de datos
-        let updatedJobs = await jobService.readJobs();
-        console.log('comprobando updatedJobs')
+        const keyword = req.body.keyword || null;
+        let updatedJobs = await jobService.readJobs(keyword);
+        console.log(updatedJobs)
 
         res.status(200).render("home.pug", { jobs: updatedJobs });
     } catch (error) {
