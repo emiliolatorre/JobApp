@@ -1,4 +1,3 @@
-const jobsController = require('.../controllers/jobs.controllers');
 
 // General Variables
 const fragment = document.createDocumentFragment();
@@ -52,52 +51,52 @@ document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", 
 // }
 
 
-// // Filtro por título (version 2 Mongo) - home.pug
-// document.addEventListener('submit', async (event) => {
+// Filtro por título (version 2 Mongo) - home.pug
+document.addEventListener('submit', async (event) => {
 
-//     if (event.target.matches('#searchKeyword')) {
-//         event.preventDefault();
-//         const inputKeyword = event.target.keyword.value.toLowerCase();
-//         console.log(inputKeyword)
+    if (event.target.matches('#searchKeyword')) {
+        event.preventDefault();
+        const inputKeyword = event.target.keyword.value.toLowerCase();
+        console.log(inputKeyword)
 
-//         try {
-//             const response = await fetch('/search', {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify({ keyword: inputKeyword })
-//             });
+        try {
+            const response = await fetch('/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ keyword: inputKeyword })
+            });
 
-//             if (!response.ok) {
-//                 throw new Error('Network response was not ok');
-//             }
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
 
-//             const jobs = await response.json();
+            const jobs = await response.json();
 
-//             // Update the jobs list in the DOM
-//             const jobsContainer = document.getElementById('jobsContainer');
-//             jobsContainer.innerHTML = ''; // Clear the current content
+            // Update the jobs list in the DOM
+            const jobsContainer = document.getElementById('jobsContainer');
+            jobsContainer.innerHTML = ''; // Clear the current content
 
-//             jobs.forEach(job => {
-//                 const jobElement = document.createElement('div');
-//                 jobElement.classList.add('job');
-//                 jobElement.innerHTML = `
-//                     <h2>${job.title}</h2>
-//                     <p>${job.description}</p>
-//                     <p>${job.client_location}</p>
-//                     <p>${job.skills}</p>
-//                     <p>${job.url}</p>
-//                     <p>${job.source}</p>
-//                     <p>${job.status}</p>
-//                 `;
-//                 jobsContainer.appendChild(jobElement);
-//             });
-//         } catch (error) {
-//             console.error('Error fetching jobs:', error);
-//         }
-//     }
-// });
+            jobs.forEach(job => {
+                const jobElement = document.createElement('div');
+                jobElement.classList.add('job');
+                jobElement.innerHTML = `
+                    <h2>${job.title}</h2>
+                    <p>${job.description}</p>
+                    <p>${job.client_location}</p>
+                    <p>${job.skills}</p>
+                    <p>${job.url}</p>
+                    <p>${job.source}</p>
+                    <p>${job.status}</p>
+                `;
+                jobsContainer.appendChild(jobElement);
+            });
+        } catch (error) {
+            console.error('Error fetching jobs:', error);
+        }
+    }
+});
 
 
 
