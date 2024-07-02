@@ -12,25 +12,43 @@ const validateCreateUser = [
         .isString().withMessage("Password should be string"),
     body("role")
         .exists().withMessage("User role is required")
-        .isString().withMessage("Role should be string")
+        .isString().withMessage("Role should be string"),
+    body("logged")
+        .exists().withMessage("User logged is required")
+        .isBoolean({ strict: true }).withMessage("Logged has to be boolean"),
+    body("last_logged_date")
+        .exists().withMessage("Last Logged Date is required")
+    // .isDate().withMessage("Last Logged Date should be date")
 ];
+
+const validateGetUsersByEmail = [
+    query('email')
+        .notEmpty().withMessage("Email should exist to get by email")
+        .isEmail().withMessage("Wrong email format")
+]
 
 const validateUpdateUser = [
     body("name")
-        .exists().withMessage("Name of users is required")
+        .optional()
         .isString().withMessage("Name should be string"),
     body("email")
-        .exists().withMessage("User email is required")
+        .optional()
         .isEmail().withMessage("Valid email is required"),
     body("password")
-        .exists().withMessage("User password is required")
+        .optional()
         .isString().withMessage("Password should be string"),
     body("role")
-        .exists().withMessage("User role is required")
+        .optional()
         .isString().withMessage("Role should be string"),
     body("old_email")
-        .exists().withMessage("Old email is required")
-        .isEmail().withMessage("Valid Old email is required")
+        .optional()
+        .isEmail().withMessage("Valid Old email is required"),
+    body("logged")
+        .optional()
+        .isBoolean({ strict: true }).withMessage("Logged has to be boolean"),
+    body("last_logged_date")
+        .optional()
+    // .isDate().withMessage("Last Logged Date should be date")
 ];
 
 const validateDeleteUser = [
@@ -41,6 +59,7 @@ const validateDeleteUser = [
 
 module.exports = {
     validateCreateUser,
+    validateGetUsersByEmail,
     validateUpdateUser,
     validateDeleteUser
 };

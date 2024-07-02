@@ -1,18 +1,24 @@
 const { body, param, query } = require("express-validator");
 
 const validateCreateFavorite = [
-    body("user_id")
-        .exists().withMessage("User_id is required")
-        .isNumeric().withMessage("User_id should be numeric"),
+    body("email")
+        .exists().withMessage("Email is required")
+        .isEmail().withMessage("Email format wrong"),
     body("job_id")
         .exists().withMessage("Job_id is required")
         .isString().withMessage("Job_id should be string")
 ];
 
+const validateReadFavorites = [
+    query("email")
+        .exists().withMessage("Email is required")
+        .isEmail().withMessage("Email format wrong")
+]
+
 const validateDeleteFavorite = [
-    query("user_id")
-        .exists().withMessage("User_id is required")
-        .isNumeric().withMessage("User_id should be numeric"),
+    query("email")
+        .exists().withMessage("Email is required")
+        .isEmail().withMessage("Email format wrong"),
     query("job_id")
         .exists().withMessage("Job_id is required")
         .isString().withMessage("Job_id should be string")
@@ -20,5 +26,6 @@ const validateDeleteFavorite = [
 
 module.exports = {
     validateCreateFavorite,
+    validateReadFavorites,
     validateDeleteFavorite
 };
