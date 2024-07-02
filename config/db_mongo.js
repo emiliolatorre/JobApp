@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require('dotenv').config();
-mongoose.connect(process.env.MONGODB_CONNECTION);
+mongoose.connect(process.env.ATLASDB);
 
 const db = mongoose.connection;
 
