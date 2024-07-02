@@ -1,4 +1,5 @@
 const Job = require('../models/jobs.model');
+const mongoose = require("mongoose");
 
 const createJob = async (title, description, skills, client_location, url, source, status) => {
         try {
@@ -95,28 +96,28 @@ const readJobsBySkill = async (skill) => {
 };
 
 // Filtro por objectId
-const readJobsByID = async (_id) => {
+const readJobsByID = async (favoritesID) => {
     const jobsFiltered = [];
     try {
-        _id.forEach( async (ID) => {
-            
+        for (const id of favoritesID) {
         
         // Verificar si el _id es válido y convertirlo a un ObjectId si es necesario
-        if (!mongoose.Types.ObjectId.isValid(ID)) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             throw new Error('Invalid ID format');
         }
 
         // Crear un filtro para buscar exactamente por _id
-        const filter = { _id: mongoose.Types.ObjectId(ID) };
+        const filter = { _id: new mongoose.Types.ObjectId(id) };
+        console.log(filter)
 
-        const job = await Job.find(filter)
+        const job = await Job.findOne(filter)
             .select('title description skills client_location url source status -_id')
-            .limit(10); // Limitar a los primeros 10 resultados
             jobsFiltered.push(job)
-        });
+        };
         return jobsFiltered;
     } catch (error) {
         console.log('Error searching jobs by skill:', error);
+        return [];
     }
 };
 
