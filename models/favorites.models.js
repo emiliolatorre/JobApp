@@ -3,11 +3,11 @@ const pool = require('../config/db_pgsql');
 
 // CREATE
 const createFavorite = async (favorite) => {
-    const { user_id, job_id } = favorite;
+    const { email, job_id } = favorite;
     let client, result;
     try {
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.createFavorite, [user_id, job_id]);
+        const data = await client.query(queries.createFavorite, [email, job_id]);
         result = data.rowCount;
     } catch (err) {
         console.log(err);
@@ -19,7 +19,7 @@ const createFavorite = async (favorite) => {
 }
 // Pruebas PostgreSQL
 // let newFavorite = {
-//     user_id: 4,
+//     email: 'diego@gmail.com',
 //     job_id: "2"
 // }
 // createFavorite(newFavorite)
@@ -27,11 +27,11 @@ const createFavorite = async (favorite) => {
 //     .catch(error => console.log(error))
 
 // READ
-const readFavorites = async () => {
+const readFavorites = async (email) => {
     let client, result;
     try {
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.readFavorites);
+        const data = await client.query(queries.readFavorites, [email]);
         result = data.rows;
     } catch (err) {
         console.log(err);
@@ -42,16 +42,16 @@ const readFavorites = async () => {
     return result
 }
 // Pruebas PostgreSQL
-// readFavorites()
+// readFavorites('diego@gmail.com')
 //     .then(data=>console.log(data))
 //     .catch(error => console.log(error))
 
 // DELETE
-const deleteFavorite = async (user_id, job_id) => {
+const deleteFavorite = async (email, job_id) => {
     let client, result;
     try {
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.deleteFavorite, [user_id, job_id])
+        const data = await client.query(queries.deleteFavorite, [email, job_id])
         result = data.rowCount
     } catch (err) {
         console.log(err);
@@ -62,7 +62,7 @@ const deleteFavorite = async (user_id, job_id) => {
     return result
 }
 // Pruebas PostgreSQL
-// deleteFavorite(4, '2')
+// deleteFavorite('diego@gmail.com', '2')
 //     .then(data => console.log(data))
 //     .catch(error => console.log(error))
 

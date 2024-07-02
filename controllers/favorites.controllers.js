@@ -8,7 +8,7 @@ const createFavoriteController = async (req, res) => {
     }
     const newFavorite = req.body;
     if (
-        "user_id" in newFavorite &&
+        "email" in newFavorite &&
         "job_id" in newFavorite
     ) {
         try {
@@ -26,21 +26,25 @@ const createFavoriteController = async (req, res) => {
 // Prueba Postman
 // POST http://localhost:3000/api/favorites
 // {
-//     "user_id": 4,
+//     "email": "diego@gmail.com",
 //     "job_id": "2"
 // }
 
 const readFavoritesController = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     let favorites;
     try {
-        favorites = await favorite.readFavorites();
+        favorites = await favorite.readFavorites(req.query.email);
         res.status(200).json(favorites);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 // Prueba Postman
-// GET http://localhost:3000/api/favorites
+// GET http://localhost:3000/api/favorites?email=diego@gmail.com
 
 const deleteFavoriteController = async (req, res) => {
     const errors = validationResult(req);
@@ -49,14 +53,14 @@ const deleteFavoriteController = async (req, res) => {
     }
     let favorites;
     try {
-        favorites = await favorite.deleteFavorite(req.query.user_id, req.query.job_id);
+        favorites = await favorite.deleteFavorite(req.query.email, req.query.job_id);
         res.status(200).json(favorites); // [] con las users encontradas
     } catch (error) {
         res.status(500).json({ error: 'Error en la BBDD' });
     }
 }
 // Prueba Postman
-// DELETE http://localhost:3000/api/favorites?user_id=4&job_id=2
+// DELETE http://localhost:3000/api/favorites?email=diego@gmail.com&job_id=2
 
 module.exports = {
     createFavoriteController,
