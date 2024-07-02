@@ -33,10 +33,23 @@ const createJobController = async (req, res) => {
 //     "status": true
 // }
 
+// READ all mongodb
+// const readJobsController = async (req, res) => {
+//     let jobs;
+//     try {
+//         jobs = await jobService.readJobs();
+//         res.status(200).json(jobs); // [] con los jobs encontrados
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// };
+
+// READ 2.0
 const readJobsController = async (req, res) => {
     let jobs;
     try {
-        jobs = await jobService.readJobs();
+        const keyword = req.body.keyword || null;
+        jobs = await jobService.readJobs(keyword);
         res.status(200).json(jobs); // [] con los jobs encontrados
     } catch (error) {
         res.status(500).json({ error: error.message });

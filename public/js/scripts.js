@@ -1,3 +1,5 @@
+const jobsController = require('.../controllers/jobs.controllers');
+
 // General Variables
 const fragment = document.createDocumentFragment();
 
@@ -18,30 +20,79 @@ document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", 
 
 //**** SCRIPT HOME.PUG **** */
 
-// Filtro por título - home.pug
-document.addEventListener('input', ({ target }) => {
+// Filtro por título (version 1) - home.pug
+// document.addEventListener('input', ({ target }) => {
 
-    if (target.matches('#searchTitle')) {
-        filterJobs(target);
-    }
+//     if (target.matches('#searchTitle')) {
+//         filterJobs(target);
+//     }
 
-});
+// });
 
-const filterJobs = (target) => {
-    const jobsFiltered = jobs.filter(obj => obj.title.toLowerCase().includes(target.value.toLowerCase()));
-    updateJobList(jobsFiltered)
-    // combineAllListsFilters();
-}
+// const filterJobs = (target) => {
+//     const jobsFiltered = jobs.filter(obj => obj.title.toLowerCase().includes(target.value.toLowerCase()));
+//     updateJobList(jobsFiltered)
+//     // combineAllListsFilters();
+// }
 
-const updateJobList = (jobsFiltered) => {
-    const articles = document.querySelectorAll('#jobsContainer article');
+// const updateJobList = (jobsFiltered) => {
+//     const articles = document.querySelectorAll('#jobsContainer article');
 
-    articles.forEach(article => {
-        const title = article.getAttribute('data-jobTitle').toLowerCase();
-        const isVisible = jobsFiltered.some(job => job.title.toLowerCase() === title);
-        article.style.display = isVisible ? 'block' : 'none';
-    });
-}
+//     articles.forEach(article => {
+//         const title = article.getAttribute('data-jobTitle').toLowerCase();
+//         const isVisible = jobsFiltered.some(job => job.title.toLowerCase() === title);
+//         article.style.display = isVisible ? 'block' : 'none';
+//     });
+// }
+
+
+// // Filtro por título (version 2 Mongo) - home.pug
+// document.addEventListener('submit', async (event) => {
+
+//     if (event.target.matches('#searchKeyword')) {
+//         event.preventDefault();
+//         const inputKeyword = event.target.keyword.value.toLowerCase();
+//         console.log(inputKeyword)
+
+//         try {
+//             const response = await fetch('/search', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify({ keyword: inputKeyword })
+//             });
+
+//             if (!response.ok) {
+//                 throw new Error('Network response was not ok');
+//             }
+
+//             const jobs = await response.json();
+
+//             // Update the jobs list in the DOM
+//             const jobsContainer = document.getElementById('jobsContainer');
+//             jobsContainer.innerHTML = ''; // Clear the current content
+
+//             jobs.forEach(job => {
+//                 const jobElement = document.createElement('div');
+//                 jobElement.classList.add('job');
+//                 jobElement.innerHTML = `
+//                     <h2>${job.title}</h2>
+//                     <p>${job.description}</p>
+//                     <p>${job.client_location}</p>
+//                     <p>${job.skills}</p>
+//                     <p>${job.url}</p>
+//                     <p>${job.source}</p>
+//                     <p>${job.status}</p>
+//                 `;
+//                 jobsContainer.appendChild(jobElement);
+//             });
+//         } catch (error) {
+//             console.error('Error fetching jobs:', error);
+//         }
+//     }
+// });
+
 
 /**** SCRIPT SIGNUP.PUG *****/
 
