@@ -65,7 +65,7 @@ const readJobs = async (keyword) => {
         }
         
         const jobs = await Job.find(filter)
-            .select('title description skills client_location url source status -_id')
+            .select('title description skills client_location url source status _id')
             .limit(10); // Limitar a los primeros 10 resultados
         
         return jobs;
@@ -86,7 +86,7 @@ const readJobsBySkill = async (skill) => {
         }
 
         const jobs = await Job.find(filter)
-            .select('title description skills client_location url source status -_id')
+            .select('title description skills client_location url source status _id')
             .limit(10); // Limitar a los primeros 10 resultados
         
         return jobs;
@@ -111,7 +111,7 @@ const readJobsByID = async (favoritesID) => {
         console.log(filter)
 
         const job = await Job.findOne(filter)
-            .select('title description skills client_location url source status -_id')
+            .select('title description skills client_location url source status _id')
             jobsFiltered.push(job)
         };
         return jobsFiltered;
