@@ -13,7 +13,7 @@ html(lang="en")
         include ./header.pug
         main
             section
-                h3#mainSubtitle Find your next Freelance Project
+                h3.mainTitle Find your next Freelance Project
                 article.searchHeader
                     form.searchKeyword(action="/search", method="POST")
                         input(type="text", name="keyword", placeholder='Search by keyword...')
@@ -21,22 +21,25 @@ html(lang="en")
                     form.searchSkill(action="/searchbyskill", method="POST")
                         input(type="text", name="skill", placeholder='Search by skill...')
                         button(type="submit") Search
-            section#jobsContainer
+            section
                 if jobs.length > 0
                     each job in jobs
                         article.card(data-jobTitle=`${job.title}`)
                             h3.jobTitle #{job.title}
                             p.description #{job.description}
-                            p.skillsTitle Skills:
-                            section.skills
-                                each skill in job.skills
-                                    p #{skill}
-                            p.locationTitle Client Location:
-                            p.location #{job.client_location}
-                            a(href=`${job.url}` target='_blank')
-                                button.jobButton(type=button) Visit Offer
-                            a(href=`` target='_blank')
-                                button.jobButton(type=submit)
+                            section.detailsContainer
+                                section.skillsContainer
+                                    p.skillsTitle Skills:
+                                    section.skills
+                                        each skill in job.skills
+                                            p #{skill}
+                                section.locationContainer
+                                    p.locationTitle Client Location:
+                                    p.location #{job.client_location}
+                            section.cardButtons
+                                a.jobButton(href=`${job.url}` target='_blank')
+                                    button(type="button") Visit Offer
+                                button.favButtonCreate(type="button" value=`${job._id}`)
                                     <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
                 else
                     p There are no new projects yet

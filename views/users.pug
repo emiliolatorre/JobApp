@@ -12,20 +12,22 @@ html(lang="en")
     body
         include ./header.pug
         main
-            section
-                h3#usersSubtitle User List
+            h3.mainTitle User List
+            section.usersCardContainer
                 each user in users
-                    article.card(data-userId=`${user.user_id}`)
-                        label(for='name') Name:
-                        input.name(type='text' name='name' value=`${user.name}`)
-                        label(for='email') Email:
-                        input.email(type='email' name='email' value=`${user.email}`)
-                        label(for='password') Password:
-                        input.password(type='password' name='password' value=`${user.password}`)
-                        label(for='role') Role:
-                        input.role(type='text' name='role' value=`${user.role}`)
-                        button#editUserButton(type='button') Edit
-                        button#deleteUserButton(type='button') Delete
+                    article.usersCardForms(data-userId=`${user.user_id}`)
+                        form.formUser(action='/users' method='post')
+                            label(for='name') Name:
+                            input.name(type='text' name='name' value=`${user.name}`)
+                            label(for='email') Email:
+                            input.email(type='email' name='email' value=`${user.email}`)
+                            label(for='password') Password:
+                            input.password(type='password' name='password' value=`${user.password}`)
+                            label(for='role') Role:
+                            input.role(type='text' name='role' value=`${user.role}`)
+                            section.cardButtons
+                                button.editUserButton.editButton(type='submit') Edit
+                                button.deleteUserButton.deleteButton(type='button') Delete
 
         include ./footer.pug
 

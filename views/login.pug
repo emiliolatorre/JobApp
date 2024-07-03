@@ -12,8 +12,8 @@ html(lang="en")
     body
         include ./header.pug
         main
-            h3 Login
-            section.card
+            h3.mainTitle Login
+            section.cardForms
                 form#formLogIn(action="/" method="POST")
                     label(for="email") Email:
                         input.email(type="email" name="email" required)

@@ -11,9 +11,7 @@ const createUserController = async (req, res) => {
         "name" in newUser &&
         "email" in newUser &&
         "password" in newUser &&
-        "role" in newUser &&
-        "logged" in newUser &&
-        "last_logged_date" in newUser
+        "role" in newUser
     ) {
         try {
             const response = await user.createUser(newUser);

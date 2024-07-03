@@ -12,6 +12,19 @@ const getHome = async (req, res) => {
         // Obtener todos los trabajos actualizados desde la base de datos
         const keyword = req.body.keyword || null;
         let updatedJobs = await jobService.readJobs(keyword);
+        
+
+        res.status(200).render("home.pug", { jobs: updatedJobs });
+    } catch (error) {
+        res.status(404).json({})
+    }
+}
+
+const getHomeBySkill = async (req, res) => {
+    try {
+        // Obtener todos los trabajos actualizados desde la base de datos
+        const skill = req.body.skill || null;
+        let updatedJobs = await jobService.readJobsBySkill(skill);
         console.log(updatedJobs)
 
         res.status(200).render("home.pug", { jobs: updatedJobs });
@@ -84,7 +97,8 @@ const getLogin = async (req, res) => {
 const getFavorites = async (req, res) => {
     try {
         // Obtener todos los trabajos actualizados desde la base de datos
-        let favoritesRead = await favoritesModels.readFavorites();
+        const email = "edu@gmail.com";
+        let favoritesRead = await favoritesModels.readFavorites(email);
         const favoritesID = favoritesRead.map(favorite => favorite.job_id);
         const favoritesData = await jobService.readJobsByID(favoritesID);
 
@@ -96,7 +110,14 @@ const getFavorites = async (req, res) => {
 }
 
 const getProfile = async (req, res) => {
-    res.render("profile.pug");
+    try {
+        const email = "edu@gmail.com" //este email habrá que capturarlo del que esté logueado en su caso
+        let usersRead = await usersModels.readUsersByEmail(email);
+        let [obj] = [...usersRead];
+        res.status(200).render("profile.pug", { user: obj });
+    } catch (error) {
+        res.status(404).json({})
+    }
 }
 
 const getUsers = async (req, res) => {
@@ -125,6 +146,7 @@ const getDashboard = async (req, res) => {
 
 module.exports = {
     getHome,
+    getHomeBySkill,
     getScraping,
     getSignup,
     getLogin,

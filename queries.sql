@@ -5,8 +5,8 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role VARCHAR(40) NOT NULL,
-  logged BOOL NOT NULL,
-  last_logged_date TIMESTAMPTZ NOT NULL
+  logged BOOL,
+  last_logged_date TIMESTAMPTZ
 );
 
 -- Crear favorites
@@ -32,13 +32,13 @@ VALUES
 -- Insertar datos en tabla favorites
 INSERT INTO favorites (user_id, job_id)
 VALUES
-(2, '1'),
-(2, '2'),
-(3, '2'),
-(3, '3'),
-(3, '4'),
-(4, '1'),
-(4, '3');
+(2, '66843f141fd851901525667c'),
+(2, '66843f141fd851901525667f'),
+(3, '66843f141fd851901525667f'),
+(3, '66843f141fd8519015256682'),
+(3, '66843f151fd8519015256688'),
+(4, '66843f141fd851901525667c'),
+(4, '66843f151fd8519015256685');
 
 -----------------------------------------------------------------------------------------------------------------------
 
