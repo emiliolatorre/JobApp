@@ -27,7 +27,7 @@ html(lang="en")
                             p.location #{job.client_location}
                             a(href=`${job.url}` target='_blank')
                                 button.jobButton(type=button) Visit Offer
-                            button.favButton(type=submit value=`${job._id}`)
+                            button.favButtonDelete(type=submit value=`${job._id}`)
                                 <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
                 else
                     p You don´t have any favorite projects yet
@@ -36,4 +36,6 @@ html(lang="en")
 
         script.
             const favoriteJobs = !{JSON.stringify(favoriteJobs)};
+            
+        //- script(src="https://kit.fontawesome.com/84340c7e8d.js" crossorigin="anonymous")
         script(src="/js/scripts.js")

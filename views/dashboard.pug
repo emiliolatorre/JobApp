@@ -14,7 +14,7 @@ html(lang="en")
         main
             section
                 h3#dashboardSubtitle Create a New Job
-                form.card(action='/dashboard' method='post')
+                form#formDashboard.card(action='/dashboard' method='put')
                     label(for='title') Job Title:
                     input(type='text' name='title')
                     label(for='description') Description:
@@ -27,7 +27,7 @@ html(lang="en")
                     input(type='url' name='url')
                     button#createJobButton(type='submit') Create Job
 
-                h3#myJobsSubtitle Your Created Jobs
+                h3#myJobsSubtitle Jobs created by Admins
                 if jobs.length > 0
                     each job in jobs
                         article.card
@@ -41,10 +41,10 @@ html(lang="en")
                             p.location #{job.client_location}
                             a(href=`${job.url}` target='_blank')
                                 button.jobButton(type='button') View Offer
-                            button#editJobButton(type='button' data-jobId=`${job._id}`) Edit
-                            button#deleteJobButton(type='button' data-jobId=`${job._id}`) Delete
+                            button.goToEditJob(type='button' value=`${job._id}`) Edit
+                            button.deleteJobButton(type='button' value=`${job.title}`) Delete
                 else
-                    p You didn´t create any job yet
+                    p There are no jobs created by Admins yet
 
         include ./footer.pug
 

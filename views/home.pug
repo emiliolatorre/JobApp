@@ -35,7 +35,7 @@ html(lang="en")
                             p.location #{job.client_location}
                             a(href=`${job.url}` target='_blank')
                                 button.jobButton(type="button") Visit Offer
-                            button.favButton(type="button" value=`${job._id}`)
+                            button.favButtonCreate(type="button" value=`${job._id}`)
                                 <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
                 else
                     p There are no new projects yet
@@ -46,4 +46,5 @@ html(lang="en")
         script.
             const jobs = !{JSON.stringify(jobs)};
             
+        //- script(src="https://kit.fontawesome.com/84340c7e8d.js" crossorigin="anonymous")
         script(src="/js/scripts.js")

@@ -10,7 +10,9 @@ router.get("/login", webController.getLogin);
 router.get("/favorites", webController.getFavorites);
 router.get("/profile", webController.getProfile);
 router.get("/users", webController.getUsers);
+router.post("/user-editor", webController.getEditUser);
 router.get("/dashboard", webController.getDashboard);
+router.post("/job-editor", webController.getEditJob);
 
 // Ruta para manejar la búsqueda por keyword
 router.post('/search', webController.getHome);

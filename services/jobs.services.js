@@ -121,6 +121,23 @@ const readJobsByID = async (favoritesID) => {
     }
 };
 
+// Jobs solo hechos por Admin
+const readJobsAdmin = async () => {
+    try {
+        let filter = {
+                source: 'admin'
+            };
+
+        const jobs = await Job.find(filter)
+            .select('title description skills client_location url source status _id')
+            .limit(10); // Limitar a los primeros 10 resultados
+        
+        return jobs;
+    } catch (error) {
+        console.log('Error searching jobs by skill:', error);
+    }
+};
+
 const updateJob = async (filter, update) => {
     try {
         const modifiedJob = await Job
@@ -161,6 +178,7 @@ module.exports = {
     readJobs,
     readJobsBySkill,
     readJobsByID,
+    readJobsAdmin,
     updateJob,
     deleteJob
 };
