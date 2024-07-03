@@ -20,6 +20,19 @@ const getHome = async (req, res) => {
     }
 }
 
+const getHomeBySkill = async (req, res) => {
+    try {
+        // Obtener todos los trabajos actualizados desde la base de datos
+        const skill = req.body.skill || null;
+        let updatedJobs = await jobService.readJobsBySkill(skill);
+        console.log(updatedJobs)
+
+        res.status(200).render("home.pug", { jobs: updatedJobs });
+    } catch (error) {
+        res.status(404).json({})
+    }
+}
+
 const getScraping = async (req, res) => {
     try {
         // Primero obtenemos los jobs actuales en mongodb
@@ -125,6 +138,7 @@ const getDashboard = async (req, res) => {
 
 module.exports = {
     getHome,
+    getHomeBySkill,
     getScraping,
     getSignup,
     getLogin,

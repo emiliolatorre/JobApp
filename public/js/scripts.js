@@ -24,78 +24,57 @@ document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", 
 
 //**** SCRIPT HOME.PUG **** */
 
-// Filtro por título (version 1) - home.pug
-// document.addEventListener('input', ({ target }) => {
+// Filtro keyword
+document.addEventListener('submit', (event) => {
+    if (event.target.matches('.searchKeyword')) {
+        event.preventDefault();
+        const keyword = event.target.keyword.value;
+        console.log('probando fetch...')
 
-//     if (target.matches('#searchTitle')) {
-//         filterJobs(target);
-//     }
+        fetch('http://localhost:3000/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ keyword: keyword })
+        })
+            .then(response => response.text()) // Cambiamos a response.text() para manejar HTML
+            .then(html => {
+                document.open();
+                document.write(html);
+                document.close();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
 
-// });
+// Filtro skill
+document.addEventListener('submit', (event) => {
+    if (event.target.matches('.searchSkill')) {
+        event.preventDefault();
+        const skill = event.target.skill.value;
+        console.log('probando fetch by skill...')
 
-// const filterJobs = (target) => {
-//     const jobsFiltered = jobs.filter(obj => obj.title.toLowerCase().includes(target.value.toLowerCase()));
-//     updateJobList(jobsFiltered)
-//     // combineAllListsFilters();
-// }
-
-// const updateJobList = (jobsFiltered) => {
-//     const articles = document.querySelectorAll('#jobsContainer article');
-
-//     articles.forEach(article => {
-//         const title = article.getAttribute('data-jobTitle').toLowerCase();
-//         const isVisible = jobsFiltered.some(job => job.title.toLowerCase() === title);
-//         article.style.display = isVisible ? 'block' : 'none';
-//     });
-// }
-
-
-// // Filtro por título (version 2 Mongo) - home.pug
-// document.addEventListener('submit', async (event) => {
-
-//     if (event.target.matches('#searchKeyword')) {
-//         event.preventDefault();
-//         const inputKeyword = event.target.keyword.value.toLowerCase();
-//         console.log(inputKeyword)
-
-//         try {
-//             const response = await fetch('/search', {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify({ keyword: inputKeyword })
-//             });
-
-//             if (!response.ok) {
-//                 throw new Error('Network response was not ok');
-//             }
-
-//             const jobs = await response.json();
-
-//             // Update the jobs list in the DOM
-//             const jobsContainer = document.getElementById('jobsContainer');
-//             jobsContainer.innerHTML = ''; // Clear the current content
-
-//             jobs.forEach(job => {
-//                 const jobElement = document.createElement('div');
-//                 jobElement.classList.add('job');
-//                 jobElement.innerHTML = `
-//                     <h2>${job.title}</h2>
-//                     <p>${job.description}</p>
-//                     <p>${job.client_location}</p>
-//                     <p>${job.skills}</p>
-//                     <p>${job.url}</p>
-//                     <p>${job.source}</p>
-//                     <p>${job.status}</p>
-//                 `;
-//                 jobsContainer.appendChild(jobElement);
-//             });
-//         } catch (error) {
-//             console.error('Error fetching jobs:', error);
-//         }
-//     }
-// });
+        fetch('http://localhost:3000/searchbyskill', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ skill: skill })
+        })
+            .then(response => response.text()) // Cambiamos a response.text() para manejar HTML
+            .then(html => {
+                document.open();
+                document.write(html);
+                document.close();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
 
 
 
@@ -109,18 +88,18 @@ const validateForm = () => {
     const inputs = document.querySelectorAll('input');
     const passwordInstructions = document.getElementById('instructions');
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
+
     passwordInstructions.style.display = 'none';
 
-    password.addEventListener('focus',() => {
+    password.addEventListener('focus', () => {
         passwordInstructions.style.display = 'block';
     });
 
-    password.addEventListener('blur',() => {
+    password.addEventListener('blur', () => {
         passwordInstructions.style.display = 'none';
     });
 
-    email.addEventListener('input',() => {
+    email.addEventListener('input', () => {
         if (email.checkValidity()) {
             email.classList.remove('error');
         } else {
@@ -128,7 +107,7 @@ const validateForm = () => {
         }
     });
 
-    form.addEventListener('submit',(event) => {
+    form.addEventListener('submit', (event) => {
         let isValid = true;
 
         inputs.forEach(input => {
@@ -173,7 +152,7 @@ const validateForm = () => {
         );
         google.accounts.id.prompt(); // muestra la ventana emergente de inicio de sesión de Google
     };
-    
+
     function handleCredentialResponse(response) {
         console.log("Encoded JWT ID token: " + response.credential);
         // Aquí puedes enviar el token al servidor o manejarlo como necesites
