@@ -15,7 +15,7 @@ html(lang="en")
         main
             h3 Sign Up
             section.card
-                form#formSignUp(action="/" method="POST")
+                form#formSignUp(action="/login" method="GET")
                     label(for="name") Name:
                         input#name(type="text" name="name" required)
                     label(for="email") Email:

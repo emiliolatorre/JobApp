@@ -9,16 +9,11 @@ const validateCreateUser = [
         .isEmail().withMessage("Valid email is required"),
     body("password")
         .exists().withMessage("User password is required")
-        .isString().withMessage("Password should be string"),
+        .isString().withMessage("Password should be string")
+        .isLength({ min: 8 }),
     body("role")
         .exists().withMessage("User role is required")
-        .isString().withMessage("Role should be string"),
-    body("logged")
-        .exists().withMessage("User logged is required")
-        .isBoolean({ strict: true }).withMessage("Logged has to be boolean"),
-    body("last_logged_date")
-        .exists().withMessage("Last Logged Date is required")
-    // .isDate().withMessage("Last Logged Date should be date")
+        .isString().withMessage("Role should be string")
 ];
 
 const validateGetUsersByEmail = [

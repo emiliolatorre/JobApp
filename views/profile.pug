@@ -14,15 +14,15 @@ html(lang="en")
         main
             section
                 h3#profileSubtitle Edit Your Profile
-                form.card(action='/profile' method='post')
+                form#formProfile.card(action='/profile' method='post')
                     label(for='name') Name:
-                    input.name(type='text' name='name' value=name)
+                    input.name(type='text' name='name' value=`${user.name}`)
                     label(for='email') Email:
-                    input.email(type='email' name='email' value=email)
+                    input.email(type='email' name='email' value=`${user.email}`)
                     label(for='password') Password:
-                    input.password(type='password' name='password')
+                    input.password(type='password' name='password' value=`${user.password}`)
                     button#editButton(type='submit') Edit
-                    button#deleteButton(type='button') Delete Account
+                button#deleteButton(type='button') Delete Account
 
         include ./footer.pug
 

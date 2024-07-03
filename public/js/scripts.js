@@ -6,6 +6,173 @@ const fragment = document.createDocumentFragment();
 
 document.addEventListener('DOMContentLoaded', () => validateForm());
 
+document.addEventListener('submit', (event) => {
+    if (event.target.matches('#formSignUp')) {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        const role = "user";
+
+        fetch('http://localhost:3000/api/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: name, email: email, password: password, role: role })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.errors) {
+                console.error('Validation errors:', data.errors);
+                for  (i=0; i<data.errors.length; i++) {
+                    console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                }
+            } else {
+                console.log('Success:', data);
+
+                fetch('http://localhost:3000/login', {
+                    method: 'GET'
+                })
+                .then(response => response.text())
+                .then(html => {
+                    document.open();
+                    document.write(html);
+                    document.close();
+                })
+                .catch((error) => {
+                    console.error('Error:', error); 
+                });
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+});
+
+document.addEventListener('submit', (event) => {
+    if (event.target.matches('#formProfile')) {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        fetch('http://localhost:3000/api/user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: name, email: email, password: password, role: "user", old_email: "diego@gmail.com" })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Profile updated');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+document.addEventListener('submit', (event) => {
+    if (event.target.matches('.editUserButton')) {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        const role = event.target.role.value;
+
+        fetch('http://localhost:3000/api/user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: name, email: email, password: password, role: role, old_email: "diego@gmail.com" })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Profile updated');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+document.addEventListener('click', (event) => {
+    if (event.target.matches('#deleteButton')) {
+        event.preventDefault();
+        const email = "diego@gmail.com"; //este valor habrá que traerlo de otro lado, auth?
+
+        fetch(`http://localhost:3000/api/user?email=${email}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for  (i=0; i<data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+    
+                    fetch('http://localhost:3000/', {
+                        method: 'GET'
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        document.open();
+                        document.write(html);
+                        document.close();
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error); 
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+
+document.addEventListener('click', (event) => {
+    if (event.target.matches('.favButton')) {
+        event.preventDefault();
+        const email = "diego@gmail.com";
+        const jobID = event.target.value;
+
+        fetch('http://localhost:3000/api/favorites', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email, job_id: jobID })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+
+
+
+
+
+
+
+
+
 
 //**** SCRIPT HEADER.PUG **** */
 
