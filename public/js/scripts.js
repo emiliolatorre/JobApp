@@ -384,13 +384,15 @@ document.addEventListener('submit', (event) => {
     if (event.target.matches('#formJob')) {
         event.preventDefault();
         console.log('boton funciona')
+        const formElement = document.querySelector('#formJob');
+        const old_title = formElement.getAttribute('data-title');
         const title = event.target.title.value;
         const description = event.target.description.value;
         const skills = [event.target.skills.value];
         const client_location = event.target.client_location.value;
         const url = event.target.url.value;
 
-        fetch('http://localhost:3000/api/jobs', {
+        fetch(`http://localhost:3000/api/jobs?title=${old_title}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -399,8 +401,28 @@ document.addEventListener('submit', (event) => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
-                alert('Job updated');
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+
+                    fetch('http://localhost:3000/dashboard', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                        alert('Job updated');
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);

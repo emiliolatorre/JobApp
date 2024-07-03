@@ -14,7 +14,7 @@ html(lang="en")
         main
             section
                 h3#profileSubtitle Job Editor
-                form#formJob.card
+                form#formJob.card(data-title=`${job.title}`)
                     label(for='title') Title:
                     input(type='text' name='title' value=`${job.title}`)
                     label(for='description') Description:
@@ -22,7 +22,7 @@ html(lang="en")
                     label(for='skills') Skills:
                     input(type='text' name='skills' value=`${job.skills}`)
                     label(for='client_location') Client Location:
-                    input(type='text' name='skills' value=`${job.client_location}`)
+                    input(type='text' name='client_location' value=`${job.client_location}`)
                     label(for='url') Url:
                     input(type='text' name='url' value=`${job.url}`)
                     button.editJobButton(type='submit') Edit
