@@ -5,8 +5,8 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role VARCHAR(40) NOT NULL,
-  logged BOOL NOT NULL,
-  last_logged_date TIMESTAMPTZ NOT NULL
+  logged BOOL,
+  last_logged_date TIMESTAMPTZ
 );
 
 -- Crear favorites

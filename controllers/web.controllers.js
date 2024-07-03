@@ -84,7 +84,8 @@ const getLogin = async (req, res) => {
 const getFavorites = async (req, res) => {
     try {
         // Obtener todos los trabajos actualizados desde la base de datos
-        let favoritesRead = await favoritesModels.readFavorites();
+        const email = "diego@gmail.com";
+        let favoritesRead = await favoritesModels.readFavorites(email);
         const favoritesID = favoritesRead.map(favorite => favorite.job_id);
         const favoritesData = await jobService.readJobsByID(favoritesID);
 
@@ -97,10 +98,10 @@ const getFavorites = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
-        const email = "hector@hector.com" //este email habrá que capturarlo del que esté logueado en su caso
-        //let usersRead = await usersModels.readUsers(email);     readUsers tiene que poder filtrar por email
-
-        res.status(200).render("users.pug", { users: usersRead });
+        const email = "diego@gmail.com" //este email habrá que capturarlo del que esté logueado en su caso
+        let usersRead = await usersModels.readUsersByEmail(email);
+        let [obj] = [...usersRead];
+        res.status(200).render("profile.pug", { user: obj });
     } catch (error) {
         res.status(404).json({})
     }

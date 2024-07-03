@@ -20,8 +20,7 @@ html(lang="en")
                     label(for='email') Email:
                     input.email(type='email' name='email' value=`${user.email}`)
                     label(for='password') Password:
-                    input.password(type='password' value=`${user.password}`)
-                    p Role: #{user.role}
+                    input.password(type='password' name='password' value=`${user.password}`)
                     button#editButton(type='submit') Edit
                 button#deleteButton(type='button') Delete Account
 

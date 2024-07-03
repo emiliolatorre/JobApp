@@ -3,11 +3,11 @@ const pool = require('../config/db_pgsql');
 
 // CREATE
 const createUser = async (user) => {
-    const { name, email, password, role, logged, last_logged_date } = user;
+    const { name, email, password, role} = user;
     let client, result;
     try {
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.createUser, [name, email, password, role, logged, last_logged_date]);
+        const data = await client.query(queries.createUser, [name, email, password, role]);
         result = data.rowCount;
     } catch (err) {
         console.log(err);

@@ -16,15 +16,16 @@ html(lang="en")
                 h3#usersSubtitle User List
                 each user in users
                     article.card(data-userId=`${user.user_id}`)
-                        label(for='name') Name:
-                        input.name(type='text' name='name' value=`${user.name}`)
-                        label(for='email') Email:
-                        input.email(type='email' name='email' value=`${user.email}`)
-                        label(for='password') Password:
-                        input.password(type='password' name='password' value=`${user.password}`)
-                        label(for='role') Role:
-                        input.role(type='text' name='role' value=`${user.role}`)
-                        button#editUserButton(type='button') Edit
+                        form.formProfile.card(action='/users' method='post')
+                            label(for='name') Name:
+                            input.name(type='text' name='name' value=`${user.name}`)
+                            label(for='email') Email:
+                            input.email(type='email' name='email' value=`${user.email}`)
+                            label(for='password') Password:
+                            input.password(type='password' name='password' value=`${user.password}`)
+                            label(for='role') Role:
+                            input.role(type='text' name='role' value=`${user.role}`)
+                            button.editUserButton(type='submit') Edit
                         button#deleteUserButton(type='button') Delete
 
         include ./footer.pug
