@@ -1,4 +1,3 @@
-
 // General Variables
 const fragment = document.createDocumentFragment();
 

@@ -194,11 +194,6 @@ main {
     box-shadow: 2px 3px 6px #00000017;
 }
 
-.searchKeyword button, .searchSkill button {
-    min-width: none;
-    max-width: min-content;
-}
-
 .card input, .textarea {
     display: block;
     align-items: center;
@@ -340,7 +335,12 @@ footer h4 {
     .hamburger {
         display: none;
     }
-
+    main {
+        flex: 1;
+        padding: 20px 20% 30px 20%;
+        color: #262626;
+        background-color: #fcfcfc;
+    }
     #jobButton {
         display: block;
         width: 20%;

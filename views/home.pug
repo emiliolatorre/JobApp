@@ -15,11 +15,11 @@ html(lang="en")
             section
                 h3#mainSubtitle Find your next Freelance Project
                 article.searchHeader
-                    form.searchKeyword(action="/api/jobs/search", method="POST")
-                        input(type="text", name="keyword", placeholder='Keyword...')
+                    form.searchKeyword(action="/search", method="POST")
+                        input(type="text", name="keyword", placeholder='Search by keyword...')
                         button(type="submit") Search
-                    form.searchSkill(action="/api/jobs/searchbyskill", method="POST")
-                        input(type="text", name="skill", placeholder='Skill...')
+                    form.searchSkill(action="/searchbyskill", method="POST")
+                        input(type="text", name="skill", placeholder='Search by skill...')
                         button(type="submit") Search
             section#jobsContainer
                 if jobs.length > 0
@@ -35,6 +35,9 @@ html(lang="en")
                             p.location #{job.client_location}
                             a(href=`${job.url}` target='_blank')
                                 button.jobButton(type=button) Visit Offer
+                            a(href=`` target='_blank')
+                                button.jobButton(type=submit)
+                                    <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
                 else
                     p There are no new projects yet
 
@@ -43,4 +46,5 @@ html(lang="en")
 
         script.
             const jobs = !{JSON.stringify(jobs)};
+            
         script(src="/js/scripts.js")

@@ -85,11 +85,11 @@ const getFavorites = async (req, res) => {
     try {
         // Obtener todos los trabajos actualizados desde la base de datos
         let favoritesRead = await favoritesModels.readFavorites();
-        const favoritesID = favoritesRead.map(favorite => favorite.fav_id);
-        const favoritesData = await jobService.readJobsByID();
+        const favoritesID = favoritesRead.map(favorite => favorite.job_id);
+        const favoritesData = await jobService.readJobsByID(favoritesID);
 
         // invocar el servicio readJobsByID****************************
-        res.status(200).render("favorites.pug", { favorites: favoritesRead });
+        res.status(200).render("favorites.pug", { favorites: favoritesData });
     } catch (error) {
         res.status(404).json({})
     }
