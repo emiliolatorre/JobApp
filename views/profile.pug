@@ -23,7 +23,7 @@ html(lang="en")
                     input.password(type='password' name='password' value=`${user.password}`)
                     section.cardButtons
                         button#editButton.editButton(type='submit') Edit
-                        button#deleteButton.deleteButton(type='button') Delete Account
+                        button#deleteButton.deleteButton(type='button' dataEmail=email) Delete Account
 
         include ./footer.pug
 

@@ -100,6 +100,7 @@ document.addEventListener('submit', (event) => {
                     .then(response => response.json())
                     .then(data => {
                         console.log('Login data: ', data);
+                        window.location.href = '/';
                     })
                     .catch((error) => {
                         console.error('Error:', error);
@@ -122,7 +123,7 @@ document.addEventListener('click', (event) => {
             .then(response => response.json())
             .then(data => {
                 console.log('Logout data: ', data);
-                // window.location.href = '/login';
+                window.location.href = '/login';
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -210,7 +211,23 @@ document.addEventListener('submit', (event) => {
 document.addEventListener('click', (event) => {
     if (event.target.matches('#deleteButton')) {
         event.preventDefault();
-        const email = "diego@gmail.com"; //este valor habrá que traerlo de otro lado, auth?
+        const deleteButton = document.querySelector("#deleteButton")
+        const email = deleteButton.getAttribute("dataEmail");
+
+        fetch('http://localhost:3000/api/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Logout data: ', data);
+                // window.location.href = '/login';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 
         fetch(`http://localhost:3000/api/user?email=${email}`, {
             method: 'DELETE'
@@ -288,7 +305,8 @@ document.addEventListener('click', (event) => {
 document.addEventListener('click', (event) => {
     if (event.target.matches('.favButtonCreate')) {
         event.preventDefault();
-        const email = "edu@gmail.com";
+        const favButtonCreate = document.querySelector('.favButtonCreate');
+        const email = favButtonCreate.getAttribute('dataEmail');
         const jobID = event.target.value;
 
         fetch('http://localhost:3000/api/favorites', {
@@ -332,7 +350,8 @@ document.addEventListener('click', (event) => {
 document.addEventListener('click', (event) => {
     if (event.target.matches('.favButtonDelete')) {
         event.preventDefault();
-        const email = "edu@gmail.com";
+        const favButtonDelete = document.querySelector('.favButtonDelete');
+        const email = favButtonDelete.getAttribute('dataEmail');
         const jobID = event.target.value;
 
         fetch(`http://localhost:3000/api/favorites?email=${email}&job_id=${jobID}`, {

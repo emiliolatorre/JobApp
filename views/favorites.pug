@@ -31,7 +31,7 @@ html(lang="en")
                             section.cardButtons
                                 a(href=`${job.url}` target='_blank')
                                     button.jobButton(type=button) Visit Offer
-                                button.favButtonDelete(type=submit value=`${job._id}`)
+                                button.favButtonDelete(type=submit value=`${job._id}` dataEmail=email)
                                     <i class="fa-solid fa-heart" style="color: #ffffff;"></i>
                 else
                     p You don´t have any favorite projects yet

@@ -39,7 +39,7 @@ html(lang="en")
                             section.cardButtons
                                 a.jobButton(href=`${job.url}` target='_blank')
                                     button(type="button") Visit Offer
-                                button.favButtonCreate(type="button" value=`${job._id}`)
+                                button.favButtonCreate(type="button" value=`${job._id}` dataEmail=email)
                                     <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
                 else
                     p There are no new projects yet

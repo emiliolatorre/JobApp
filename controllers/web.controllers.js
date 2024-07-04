@@ -18,7 +18,8 @@ const getHome = async (req, res) => {
         //     return;
         // }
         const role = req.decoded?.role || "nologeado";
-        res.status(200).render("home.pug", { jobs: updatedJobs, role});
+        const email = req.decoded?.email || "noemail@gmail.com"
+        res.status(200).render("home.pug", { jobs: updatedJobs, role, email});
     } catch (error) {
         res.status(404).json({})
     }
@@ -112,7 +113,7 @@ const getFavorites = async (req, res) => {
 
         // invocar el servicio readJobsByID****************************
         const role = req.decoded?.role || "nologeado";
-        res.status(200).render("favorites.pug", { favorites: favoritesData, role });
+        res.status(200).render("favorites.pug", { favorites: favoritesData, role, email });
     } catch (error) {
         res.status(404).json({})
     }
@@ -126,7 +127,7 @@ const getProfile = async (req, res) => {
         let [obj] = [...usersRead];
         const role = req.decoded?.role || "nologeado";
         const old_email = req.decoded.email;
-        res.status(200).render("profile.pug", { user: obj, role, old_email});
+        res.status(200).render("profile.pug", { user: obj, role, old_email, email});
     } catch (error) {
         res.status(404).json({})
     }
