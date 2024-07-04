@@ -13,7 +13,7 @@ html(lang="en")
         include ./header.pug
         main
             section
-                h3#favoritesSubtitle Your Favorite Projects
+                h3.mainTitle Your Favorite Projects
                 if favorites
                     each job in favorites
                         article.card(data-jobTitle=`${job.title}`)
@@ -25,10 +25,11 @@ html(lang="en")
                                     p #{skill}
                             p.locationTitle Client Location:
                             p.location #{job.client_location}
-                            a(href=`${job.url}` target='_blank')
-                                button.jobButton(type=button) Visit Offer
-                            button.favButton(type=submit value=`${job._id}`)
-                                <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
+                            section.cardButtons
+                                a(href=`${job.url}` target='_blank')
+                                    button.jobButton(type=button) Visit Offer
+                                button.favButtonDelete(type=submit value=`${job._id}`)
+                                    <i class="fa-solid fa-heart" style="color: #ffffff;"></i>
                 else
                     p You don´t have any favorite projects yet
 

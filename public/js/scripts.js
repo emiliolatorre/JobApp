@@ -248,7 +248,7 @@ document.addEventListener('submit', (event) => {
 /**** SCRIPT SIGNUP.PUG *****/
 
 const validateForm = () => {
-    const form = document.querySelector('.card');
+    const form = document.querySelector('.cardForms');
     const email = document.querySelector('.email');
     const password = document.querySelector('.password');
     const confirmPassword = document.getElementById('confirmPassword');

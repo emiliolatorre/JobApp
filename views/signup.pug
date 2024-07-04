@@ -13,8 +13,8 @@ html(lang="en")
     body
         include ./header.pug
         main
-            h3 Sign Up
-            section.card
+            h3.mainTitle Sign Up
+            section.cardForms
                 form#formSignUp(action="/login" method="GET")
                     label(for="name") Name:
                         input#name(type="text" name="name" required)

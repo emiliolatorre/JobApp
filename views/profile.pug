@@ -12,17 +12,18 @@ html(lang="en")
     body
         include ./header.pug
         main
-            section
-                h3#profileSubtitle Edit Your Profile
-                form#formProfile.card(action='/profile' method='post')
+            h3.mainTitle Edit Your Profile
+            section.cardForms
+                form#formProfile(action='/profile' method='post')
                     label(for='name') Name:
                     input.name(type='text' name='name' value=`${user.name}`)
                     label(for='email') Email:
                     input.email(type='email' name='email' value=`${user.email}`)
                     label(for='password') Password:
                     input.password(type='password' name='password' value=`${user.password}`)
-                    button#editButton(type='submit') Edit
-                button#deleteButton(type='button') Delete Account
+                    section.cardButtons
+                        button#editButton.editButton(type='submit') Edit
+                        button#deleteButton.deleteButton(type='button') Delete Account
 
         include ./footer.pug
 
