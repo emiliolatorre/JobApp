@@ -12,42 +12,42 @@ document.addEventListener('submit', (event) => {
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
-        const role = "user";
+        // const role = "user";
 
         fetch('http://localhost:3000/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: name, email: email, password: password, role: role })
+            body: JSON.stringify({ name: name, email: email, password: password })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.errors) {
-                console.error('Validation errors:', data.errors);
-                for  (i=0; i<data.errors.length; i++) {
-                    console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
-                }
-            } else {
-                console.log('Success:', data);
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
 
-                fetch('http://localhost:3000/login', {
-                    method: 'GET'
-                })
-                .then(response => response.text())
-                .then(html => {
-                    document.open();
-                    document.write(html);
-                    document.close();
-                })
-                .catch((error) => {
-                    console.error('Error:', error); 
-                });
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+                    fetch('http://localhost:3000/login', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            document.open();
+                            document.write(html);
+                            document.close();
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 });
 
@@ -57,13 +57,14 @@ document.addEventListener('submit', (event) => {
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const old_email = document.querySelector('#formProfile').getAttribute("data");
 
         fetch('http://localhost:3000/api/user', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: name, email: email, password: password, role: "user", old_email: "diego@gmail.com" })
+            body: JSON.stringify({ name: name, email: email, password: password, role: "user", old_email: old_email})
         })
             .then(response => response.json())
             .then(data => {
@@ -74,7 +75,84 @@ document.addEventListener('submit', (event) => {
                 console.error('Error:', error);
             });
     }
+
+    if (event.target.matches('#formLogIn')) {
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        fetch(`http://localhost:3000/api/user?email=${email}`, {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Found user: ', data);
+
+                fetch('http://localhost:3000/api/user/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email, password: password })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Login data: ', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
 });
+
+document.addEventListener('click', (event) => {
+    if (event.target.matches('#linkLogout')) {
+        fetch('http://localhost:3000/api/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Logout data: ', data);
+                // window.location.href = '/login';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
+}
+
+function getSignedInUserEmail() {
+    const token = getCookie('token');
+    console.log('Token:', token); // Debug token
+    if (token) {
+        const decoded = jwt_decode(token);
+        const { email, role } = decoded;
+        console.log('Email:', email);
+        console.log('Role:', role);
+        return email;
+    } else {
+        console.log('Token not found');
+        return null;
+    }
+}
 
 document.addEventListener('submit', (event) => {
     if (event.target.matches('.editUserButton')) {
@@ -114,24 +192,24 @@ document.addEventListener('click', (event) => {
             .then(data => {
                 if (data.errors) {
                     console.error('Validation errors:', data.errors);
-                    for  (i=0; i<data.errors.length; i++) {
+                    for (i = 0; i < data.errors.length; i++) {
                         console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
                     }
                 } else {
                     console.log('Success:', data);
-    
+
                     fetch('http://localhost:3000/', {
                         method: 'GET'
                     })
-                    .then(response => response.text())
-                    .then(html => {
-                        document.open();
-                        document.write(html);
-                        document.close();
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error); 
-                    });
+                        .then(response => response.text())
+                        .then(html => {
+                            document.open();
+                            document.write(html);
+                            document.close();
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
                 }
             })
             .catch((error) => {

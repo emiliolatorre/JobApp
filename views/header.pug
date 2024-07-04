@@ -3,22 +3,27 @@ header.navbar
         h1 Job App
     section
         ul.nav-menu
+            p #{role}
             li.nav-item
                 a(href="./" class="nav-link") Home
-            li.nav-item
-                a(href="./signup" class="nav-link loggedout") Signup
-            li.nav-item
-                a(href="./login" class="nav-link loggedout") Login
-            li.nav-item
-                a(href="./favorites" class="nav-link loggedin") Favorites
-            li.nav-item
-                a(href="./profile" class="nav-link loggedin") Profile
-            li.nav-item
-                a(href="./users" class="nav-link adminloggedin") Users
-            li.nav-item
-                a(href="./dashboard" class="nav-link adminloggedin") Dashboard
-            li.nav-item
-                a(class="nav-link loggedin") Logout
+            if role === "nologeado"
+                li.nav-item
+                    a(href="./signup" class="nav-link loggedout") Signup
+                li.nav-item
+                    a(href="./login" class="nav-link loggedout") Login
+            if role === "user" || role === "admin"
+                li.nav-item
+                    a(href="./favorites" class="nav-link loggedin") Favorites
+                li.nav-item
+                    a(href="./profile" class="nav-link loggedin") Profile
+            if role === "admin"
+                li.nav-item
+                    a(href="./users" class="nav-link adminloggedin") Users
+                li.nav-item
+                    a(href="./dashboard" class="nav-link adminloggedin") Dashboard
+            if role === "user" || role === "admin"
+                li.nav-item
+                    a(class="nav-link loggedin" id="linkLogout") Logout
         div.hamburger
             span.bar
             span.bar

@@ -1,5 +1,9 @@
 const user = require('../models/users.models');
 const { validationResult } = require("express-validator");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const jwt_secret = process.env.ULTRA_SECRET_KEY;
 
 const createUserController = async (req, res) => {
     const errors = validationResult(req);
@@ -10,11 +14,12 @@ const createUserController = async (req, res) => {
     if (
         "name" in newUser &&
         "email" in newUser &&
-        "password" in newUser &&
-        "role" in newUser
+        "password" in newUser
     ) {
         try {
-            const response = await user.createUser(newUser);
+            const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
+            // const user = (req.body.name, req.body.email, hashPassword, req.body.role);
+            const response = await user.createUser(req.body.name, req.body.email, hashPassword);
             res.status(201).json({
                 items_created: response
             });
@@ -66,11 +71,11 @@ const updateUserController = async (req, res) => {
     const modifiedUser = req.body;
     if (
         ("name" in modifiedUser ||
-        "email" in modifiedUser ||
-        "password" in modifiedUser ||
-        "role" in modifiedUser ||
-        "logged" in modifiedUser ||
-        "last_logged_date" in modifiedUser) &&
+            "email" in modifiedUser ||
+            "password" in modifiedUser ||
+            "role" in modifiedUser ||
+            "logged" in modifiedUser ||
+            "last_logged_date" in modifiedUser) &&
         "old_email" in modifiedUser
     ) {
         try {
@@ -113,13 +118,75 @@ const deleteUserController = async (req, res) => {
 // Prueba Postman
 // DELETE http://localhost:3000/api/user?email=prueba2@gmail.com
 
-const postLogin = async (req, res) => {
+const login = async (req, res) => {
+    try {
+        const body = JSON.stringify(req.body);
+        console.log(body);
 
-}
+        const { email, password } = JSON.parse(body);
 
-const postLogout = async (req, res) => {
+        console.log("---" + email, password);
 
-}
+        const data = await user.readUsersByEmail(email);
+        console.log(data);
+
+        if (!data || data.length === 0) {
+            res.status(400).json({ msg: 'Incorrect user or password' });
+        } else {
+            console.log(password, data[0].password);
+            const match = await bcrypt.compare(password, data[0].password);
+            if (match) {
+                const updatedUser = {
+                    logged: true,
+                    old_email: req.body.email,
+                    last_logged_date: new Date().toISOString()
+                };
+                await user.updateUser(updatedUser);
+                const { email, role } = data[0];
+                const userForToken = {
+                    email: email,
+                    role: role
+                };
+                const token = jwt.sign(userForToken, jwt_secret, { expiresIn: '20m' });
+                
+                res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 20 * 60 * 1000 });
+                res.status(200).json({
+                    msg: 'Correct authentication',
+                });
+                // return res.redirect('/home');
+            } else {
+                res.status(400).json({ msg: 'Incorrect user or password' });
+            }
+        }
+    } catch (error) {
+        console.log('Error:', error);
+        res.status(500).json({ msg: 'Internal server error' });
+    }
+};
+
+const logout = async (req, res) => {
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(400).json({ message: 'No token provided' });
+        }
+        const decoded = jwt.verify(token, jwt_secret);
+        const updatedUser = {
+            logged: false,
+            old_email: decoded.email
+        };
+        await user.updateUser(updatedUser);
+
+        res.clearCookie('token');
+
+        return res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+        console.log('Error:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
 
 const recoverPassword = async (req, res) => {
 
@@ -134,8 +201,8 @@ module.exports = {
     readUsersController,
     updateUserController,
     deleteUserController,
-    // postLogin,
-    // postLogout,
+    login,
+    logout,
     // recoverPassword,
     // restorePassword
 }
