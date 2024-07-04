@@ -573,7 +573,8 @@ const validateForm = () => {
     const confirmPassword = document.getElementById('confirmPassword');
     const inputs = document.querySelectorAll('input');
     const passwordInstructions = document.getElementById('instructions');
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^.{8}$/;
 
     passwordInstructions.style.display = 'none';
 
@@ -622,7 +623,7 @@ const validateForm = () => {
             confirmPassword.setCustomValidity('');
         }
 
-        if (!isValid) {
+        if (isValid === false) {
             event.preventDefault();
         }
     });

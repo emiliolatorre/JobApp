@@ -12,9 +12,9 @@ html(lang="en")
     body
         include ./header.pug
         main
-            section
-                h3#profileSubtitle User Editor
-                form#formUser.formUser.card(data-email=`${user.email}`)
+            h3#profileSubtitle User Editor
+            section.cardForms
+                form#formUser.formUser(data-email=`${user.email}`)
                     label(for='name') Name:
                     input.name(type='text' name='name' value=`${user.name}`)
                     label(for='email') Email:

@@ -19,12 +19,15 @@ html(lang="en")
                         article.card(data-jobTitle=`${job.title}`)
                             h3.jobTitle #{job.title}
                             p.description #{job.description}
-                            p.skillsTitle Skills:
-                            section.skills
-                                each skill in job.skills
-                                    p #{skill}
-                            p.locationTitle Client Location:
-                            p.location #{job.client_location}
+                            section.detailsContainer
+                                section.skillsContainer
+                                    p.skillsTitle Skills:
+                                    div.skills
+                                        each skill in job.skills
+                                            p #{skill}
+                                section.locationContainer
+                                    p.locationTitle Client Location:
+                                    p.location #{job.client_location}
                             section.cardButtons
                                 a(href=`${job.url}` target='_blank')
                                     button.jobButton(type=button) Visit Offer

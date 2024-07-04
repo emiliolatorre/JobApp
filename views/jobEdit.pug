@@ -12,9 +12,9 @@ html(lang="en")
     body
         include ./header.pug
         main
-            section
-                h3#profileSubtitle Job Editor
-                form#formJob.card(data-title=`${job.title}`)
+            h3#profileSubtitle Job Editor
+            section.cardForms
+                form#formJob(data-title=`${job.title}`)
                     label(for='title') Title:
                     input(type='text' name='title' value=`${job.title}`)
                     label(for='description') Description:
@@ -25,7 +25,7 @@ html(lang="en")
                     input(type='text' name='client_location' value=`${job.client_location}`)
                     label(for='url') Url:
                     input(type='text' name='url' value=`${job.url}`)
-                    button.editJobButton(type='submit') Edit
+                    button.editJobButton.editButton(type='submit') Edit
 
         include ./footer.pug
 

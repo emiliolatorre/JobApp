@@ -15,18 +15,21 @@ html(lang="en")
             h3.mainTitle User List
             section.usersCardContainer
                 each user in users
-                    article.card(data-userId=`${user.user_id}`)
-                        div
-                            p Name:
-                            p #{user.name}
-                        div
-                            p Email:
-                            p #{user.email}
-                        div
-                            p Role:
-                            p #{user.role}
-                        button.goToEditUser.editUserButton.editButton(type='button' value=`${user.email}`) Edit
-                        button.deleteUserButton.deleteButton(type='button' value=`${user.email}`) Delete
+                    article.cardUsers(data-userId=`${user.user_id}`)
+                        div.divUser
+                            p.bold Name:
+                            p.pUser #{user.name}
+                        div.divUser
+                            p.bold Email:
+                            p.pUser #{user.email}
+                        div.divUser
+                            p.bold Role:
+                            p.pUser #{user.role}
+                        div.cardButtonsUsers
+                            button.goToEditUser.editUserButton.editButton(type='button' value=`${user.email}`)
+                                <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+                            button.deleteUserButton.deleteButton(type='button' value=`${user.email}`)
+                                <i class="fa-solid fa-trash-can" style="color: #ffffff;"></i>
 
         include ./footer.pug
 

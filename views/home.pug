@@ -14,13 +14,13 @@ html(lang="en")
         main
             section
                 h3.mainTitle Find your next Freelance Project
-                article.searchHeader
-                    form.searchKeyword(action="/search", method="POST")
-                        input(type="text", name="keyword", placeholder='Search by keyword...')
-                        button(type="submit") Search
-                    form.searchSkill(action="/searchbyskill", method="POST")
-                        input(type="text", name="skill", placeholder='Search by skill...')
-                        button(type="submit") Search
+            article.searchHeader
+                form.searchKeyword(action="/search", method="POST")
+                    input(type="text", name="keyword", placeholder='Search by keyword...')
+                    button(type="submit") Search
+                form.searchSkill(action="/searchbyskill", method="POST")
+                    input(type="text", name="skill", placeholder='Search by skill...')
+                    button(type="submit") Search
             section
                 if jobs.length > 0
                     each job in jobs
@@ -30,7 +30,7 @@ html(lang="en")
                             section.detailsContainer
                                 section.skillsContainer
                                     p.skillsTitle Skills:
-                                    section.skills
+                                    div.skills
                                         each skill in job.skills
                                             p #{skill}
                                 section.locationContainer
