@@ -1,0 +1,35 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/css/styles.css")
+        link(rel='preconnect' href='https://fonts.googleapis.com')
+        link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+        link(href='https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap' rel='stylesheet')
+        title Job to edit
+    body
+        include ./header.pug
+        main
+            section
+                h3#profileSubtitle Job Editor
+                form#formJob.card(data-title=`${job.title}`)
+                    label(for='title') Title:
+                    input(type='text' name='title' value=`${job.title}`)
+                    label(for='description') Description:
+                    input(name='description' value=`${job.description}`)
+                    label(for='skills') Skills:
+                    input(type='text' name='skills' value=`${job.skills}`)
+                    label(for='client_location') Client Location:
+                    input(type='text' name='client_location' value=`${job.client_location}`)
+                    label(for='url') Url:
+                    input(type='text' name='url' value=`${job.url}`)
+                    button.editJobButton(type='submit') Edit
+
+        include ./footer.pug
+
+        script.
+            const name = !{JSON.stringify(name)};
+            const email = !{JSON.stringify(email)};
+        script(src="/js/scripts.js")
