@@ -15,7 +15,7 @@ document.addEventListener('submit', (event) => {
         const password = event.target.password.value;
         // const role = "user";
 
-        fetch('http://localhost:3000/api/user', {
+        fetch('https://jobapp-w73i.onrender.com/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ document.addEventListener('submit', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/login', {
+                    fetch('https://jobapp-w73i.onrender.com/login', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -61,7 +61,7 @@ document.addEventListener('submit', (event) => {
         const password = event.target.password.value;
         const old_email = document.querySelector('#formProfile').getAttribute("data");
 
-        fetch('http://localhost:3000/api/user', {
+        fetch('https://jobapp-w73i.onrender.com/api/user', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -83,14 +83,14 @@ document.addEventListener('submit', (event) => {
         const email = event.target.email.value;
         const password = event.target.password.value;
 
-        fetch(`http://localhost:3000/api/user?email=${email}`, {
+        fetch(`https://jobapp-w73i.onrender.com/api/user?email=${email}`, {
             method: 'GET'
         })
             .then(response => response.json())
             .then(data => {
                 console.log('Found user: ', data);
 
-                fetch('http://localhost:3000/api/user/login', {
+                fetch('https://jobapp-w73i.onrender.com/api/user/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -114,7 +114,7 @@ document.addEventListener('submit', (event) => {
 
 document.addEventListener('click', (event) => {
     if (event.target.matches('#linkLogout')) {
-        fetch('http://localhost:3000/api/user/logout', {
+        fetch('https://jobapp-w73i.onrender.com/api/user/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -169,7 +169,7 @@ document.addEventListener('submit', (event) => {
         const role = event.target.role.value;
         console.log(role)
 
-        fetch('http://localhost:3000/api/user', {
+        fetch('https://jobapp-w73i.onrender.com/api/user', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -186,7 +186,7 @@ document.addEventListener('submit', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/users', {
+                    fetch('https://jobapp-w73i.onrender.com/users', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -214,7 +214,7 @@ document.addEventListener('click', (event) => {
         const deleteButton = document.querySelector("#deleteButton")
         const email = deleteButton.getAttribute("dataEmail");
 
-        fetch('http://localhost:3000/api/user/logout', {
+        fetch('https://jobapp-w73i.onrender.com/api/user/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -229,7 +229,7 @@ document.addEventListener('click', (event) => {
                 console.error('Error:', error);
             });
 
-        fetch(`http://localhost:3000/api/user?email=${email}`, {
+        fetch(`https://jobapp-w73i.onrender.com/api/user?email=${email}`, {
             method: 'DELETE'
         })
             .then(response => response.json())
@@ -242,7 +242,7 @@ document.addEventListener('click', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/', {
+                    fetch('https://jobapp-w73i.onrender.com/', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -268,7 +268,7 @@ document.addEventListener('click', (event) => {
         event.preventDefault();
         const email = event.target.value;
 
-        fetch(`http://localhost:3000/api/user?email=${email}`, {
+        fetch(`https://jobapp-w73i.onrender.com/api/user?email=${email}`, {
             method: 'DELETE'
         })
             .then(response => response.json())
@@ -281,7 +281,7 @@ document.addEventListener('click', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/users', {
+                    fetch('https://jobapp-w73i.onrender.com/users', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -309,7 +309,7 @@ document.addEventListener('click', (event) => {
         const email = favButtonCreate.getAttribute('dataEmail');
         const jobID = event.target.value;
 
-        fetch('http://localhost:3000/api/favorites', {
+        fetch('https://jobapp-w73i.onrender.com/api/favorites', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -326,7 +326,7 @@ document.addEventListener('click', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/favorites', {
+                    fetch('https://jobapp-w73i.onrender.com/favorites', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -354,7 +354,7 @@ document.addEventListener('click', (event) => {
         const email = favButtonDelete.getAttribute('dataEmail');
         const jobID = event.target.value;
 
-        fetch(`http://localhost:3000/api/favorites?email=${email}&job_id=${jobID}`, {
+        fetch(`https://jobapp-w73i.onrender.com/api/favorites?email=${email}&job_id=${jobID}`, {
             method: 'DELETE'
         })
             .then(response => response.json())
@@ -367,7 +367,7 @@ document.addEventListener('click', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/favorites', {
+                    fetch('https://jobapp-w73i.onrender.com/favorites', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -400,7 +400,7 @@ document.addEventListener('submit', (event) => {
         const url = event.target.url.value;
 
 
-        fetch('http://localhost:3000/api/jobs', {
+        fetch('https://jobapp-w73i.onrender.com/api/jobs', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -417,7 +417,7 @@ document.addEventListener('submit', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/dashboard', {
+                    fetch('https://jobapp-w73i.onrender.com/dashboard', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -443,7 +443,7 @@ document.addEventListener('click', (event) => {
         event.preventDefault();
         const title = event.target.value;
 
-        fetch(`http://localhost:3000/api/jobs?title=${title}`, {
+        fetch(`https://jobapp-w73i.onrender.com/api/jobs?title=${title}`, {
             method: 'DELETE'
         })
             .then(response => response.json())
@@ -456,7 +456,7 @@ document.addEventListener('click', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/dashboard', {
+                    fetch('https://jobapp-w73i.onrender.com/dashboard', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -489,7 +489,7 @@ document.addEventListener('submit', (event) => {
         const client_location = event.target.client_location.value;
         const url = event.target.url.value;
 
-        fetch(`http://localhost:3000/api/jobs?title=${old_title}`, {
+        fetch(`https://jobapp-w73i.onrender.com/api/jobs?title=${old_title}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -506,7 +506,7 @@ document.addEventListener('submit', (event) => {
                 } else {
                     console.log('Success:', data);
 
-                    fetch('http://localhost:3000/dashboard', {
+                    fetch('https://jobapp-w73i.onrender.com/dashboard', {
                         method: 'GET'
                     })
                         .then(response => response.text())
@@ -534,7 +534,7 @@ document.addEventListener('click', (event) => {
         const job_id = event.target.value;
         console.log(job_id)
 
-        fetch(`http://localhost:3000/job-editor`, {
+        fetch(`https://jobapp-w73i.onrender.com/job-editor`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -562,7 +562,7 @@ document.addEventListener('click', (event) => {
         console.log(email)
         console.log('probando evento gotoedit')
 
-        fetch(`http://localhost:3000/user-editor`, {
+        fetch(`https://jobapp-w73i.onrender.com/user-editor`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -615,7 +615,7 @@ document.addEventListener('submit', (event) => {
         event.preventDefault();
         const keyword = event.target.keyword.value;
 
-        fetch('http://localhost:3000/search', {
+        fetch('https://jobapp-w73i.onrender.com/search', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -640,7 +640,7 @@ document.addEventListener('submit', (event) => {
         event.preventDefault();
         const skill = event.target.skill.value;
 
-        fetch('http://localhost:3000/searchbyskill', {
+        fetch('https://jobapp-w73i.onrender.com/searchbyskill', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -22,7 +22,7 @@ const createJobController = async (req, res) => {
     }
 };
 // Prueba Postman
-// POST http://localhost:3000/api/jobs
+// POST https://jobapp-w73i.onrender.com/api/jobs
 // {
 //     "title": "Experienced Virtual Assistant for Creating Shopify Landing/Product Pages",
 //     "description": "We are looking for an experienced virtual assistant who can help us create stunning landing and product pages on Shopify for our multiple e-commerce brands.",
@@ -56,7 +56,7 @@ const readJobsController = async (req, res) => {
     }
 };
 // Prueba Postman
-// GET http://localhost:3000/api/jobs
+// GET https://jobapp-w73i.onrender.com/api/jobs
 
 const updateJobController = async (req, res) => {
     // Validate request
@@ -74,7 +74,7 @@ const updateJobController = async (req, res) => {
     }
 };
 // Prueba Postman
-// PUT http://localhost:3000/api/jobs?title=Experienced Virtual Assistant for Creating Shopify Landing/Product Pages
+// PUT https://jobapp-w73i.onrender.com/api/jobs?title=Experienced Virtual Assistant for Creating Shopify Landing/Product Pages
 // {
 //     "title": "Experienced Virtual Assistant for Creating Shopify Landing/Product Pages",
 //     "description": "We are looking for an experienced virtual assistant who can help us create stunning landing and product pages on Shopify for our multiple e-commerce brands.",
@@ -100,7 +100,7 @@ const deleteJobController = async (req, res) => {
     }
 };
 // Prueba Postman
-// DELETE http://localhost:3000/api/jobs?title=Experienced Virtual Assistant for Creating Shopify Landing/Product Pages
+// DELETE https://jobapp-w73i.onrender.com/api/jobs?title=Experienced Virtual Assistant for Creating Shopify Landing/Product Pages
 
 module.exports = {
     createJobController,

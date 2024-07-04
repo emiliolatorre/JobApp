@@ -24,7 +24,7 @@ const createFavoriteController = async (req, res) => {
     }
 }
 // Prueba Postman
-// POST http://localhost:3000/api/favorites
+// POST https://jobapp-w73i.onrender.com/api/favorites
 // {
 //     "email": "diego@gmail.com",
 //     "job_id": "2"
@@ -44,7 +44,7 @@ const readFavoritesController = async (req, res) => {
     }
 }
 // Prueba Postman
-// GET http://localhost:3000/api/favorites?email=diego@gmail.com
+// GET https://jobapp-w73i.onrender.com
 
 const deleteFavoriteController = async (req, res) => {
     const errors = validationResult(req);
@@ -60,7 +60,7 @@ const deleteFavoriteController = async (req, res) => {
     }
 }
 // Prueba Postman
-// DELETE http://localhost:3000/api/favorites?email=diego@gmail.com&job_id=2
+// DELETE https://jobapp-w73i.onrender.com&job_id=2
 
 module.exports = {
     createFavoriteController,

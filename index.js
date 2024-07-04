@@ -33,5 +33,5 @@ app.use('/api/user', usersRoutes);
 app.use('/api/favorites', favoritesRoutes);
 
 app.listen(port, () => {
-    console.log(`Job App listening on http://localhost:${port}`);
+    console.log(`Job App listening on https://jobapp-w73i.onrender.com:${port}`);
 });
