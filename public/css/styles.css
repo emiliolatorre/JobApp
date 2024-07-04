@@ -142,6 +142,10 @@ input {
     background-color: rgb(255, 80, 109);
 }
 
+.fa-solid, .fa-regular, .fa-brands {
+    pointer-events: none;
+}
+
 .editButton {
     background-color: rgb(20, 106, 20);
 }
