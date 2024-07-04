@@ -13,14 +13,14 @@ document.addEventListener('submit', (event) => {
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
-        const role = "user";
+        // const role = "user";
 
         fetch('http://localhost:3000/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: name, email: email, password: password, role: role })
+            body: JSON.stringify({ name: name, email: email, password: password })
         })
             .then(response => response.json())
             .then(data => {
@@ -59,13 +59,14 @@ document.addEventListener('submit', (event) => {
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const old_email = document.querySelector('#formProfile').getAttribute("data");
 
         fetch('http://localhost:3000/api/user', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: name, email: email, password: password, role: "user", old_email: "diego@gmail.com" })
+            body: JSON.stringify({ name: name, email: email, password: password, role: "user", old_email: old_email})
         })
             .then(response => response.json())
             .then(data => {

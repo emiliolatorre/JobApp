@@ -10,10 +10,7 @@ const validateCreateUser = [
     body("password")
         .exists().withMessage("User password is required")
         .isString().withMessage("Password should be string")
-        .isLength({ min: 8 }),
-    body("role")
-        .exists().withMessage("User role is required")
-        .isString().withMessage("Role should be string")
+        .isLength({ min: 8 })
 ];
 
 const validateGetUsersByEmail = [

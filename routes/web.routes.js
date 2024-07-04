@@ -1,17 +1,19 @@
 const webController = require('../controllers/web.controllers');
 const jobService = require('../services/jobs.services');
 const router = require('express').Router();
+const protectedRoutes = require('../middlewares/verifiedToken');
+const protectedRoutesAdmin = require('../middlewares/verifiedTokenAdmin');
 
 // GET http://localhost::3000/
-router.get("/", webController.getHome);
-router.get("/scraper", webController.getScraping);
-router.get("/signup", webController.getSignup);
-router.get("/login", webController.getLogin);
-router.get("/favorites", webController.getFavorites);
-router.get("/profile", webController.getProfile);
-router.get("/users", webController.getUsers);
+router.get("/", protectedRoutes, webController.getHome);
+router.get("/scraper", protectedRoutesAdmin, webController.getScraping);
+router.get("/signup", protectedRoutes, webController.getSignup);
+router.get("/login", protectedRoutes, webController.getLogin);
+router.get("/favorites", protectedRoutes, webController.getFavorites);
+router.get("/profile", protectedRoutes, webController.getProfile);
+router.get("/users", protectedRoutesAdmin, webController.getUsers);
 router.post("/user-editor", webController.getEditUser);
-router.get("/dashboard", webController.getDashboard);
+router.get("/dashboard", protectedRoutesAdmin, webController.getDashboard);
 router.post("/job-editor", webController.getEditJob);
 
 // Ruta para manejar la búsqueda por keyword

@@ -12,9 +12,13 @@ const getHome = async (req, res) => {
         // Obtener todos los trabajos actualizados desde la base de datos
         const keyword = req.body.keyword || null;
         let updatedJobs = await jobService.readJobs(keyword);
-        
 
-        res.status(200).render("home.pug", { jobs: updatedJobs });
+        // if(!req.logged){
+        //     res.status(200).render("home.pug", {jobs: updatedJobs});
+        //     return;
+        // }
+        const role = req.decoded?.role || "nologeado";
+        res.status(200).render("home.pug", { jobs: updatedJobs, role});
     } catch (error) {
         res.status(404).json({})
     }
@@ -27,7 +31,8 @@ const getHomeBySkill = async (req, res) => {
         let updatedJobs = await jobService.readJobsBySkill(skill);
         console.log(updatedJobs)
 
-        res.status(200).render("home.pug", { jobs: updatedJobs });
+        const role = req.decoded?.role || "nologeado";
+        res.status(200).render("home.pug", { jobs: updatedJobs, role });
     } catch (error) {
         res.status(404).json({})
     }
@@ -87,34 +92,41 @@ const getScraping = async (req, res) => {
 }
 
 const getSignup = async (req, res) => {
-    res.render("signup.pug");
+    console.log(req.decoded);
+    const role = req.decoded?.role || "nologeado";
+    res.render("signup.pug", {role});
 }
 
 const getLogin = async (req, res) => {
-    res.render("login.pug");
+    const role = req.decoded?.role || "nologeado";
+    res.render("login.pug", {role});
 }
 
 const getFavorites = async (req, res) => {
     try {
         // Obtener todos los trabajos actualizados desde la base de datos
-        const email = "edu@gmail.com";
+        const email = req.decoded.email;
         let favoritesRead = await favoritesModels.readFavorites(email);
         const favoritesID = favoritesRead.map(favorite => favorite.job_id);
         const favoritesData = await jobService.readJobsByID(favoritesID);
 
         // invocar el servicio readJobsByID****************************
-        res.status(200).render("favorites.pug", { favorites: favoritesData });
+        const role = req.decoded?.role || "nologeado";
+        res.status(200).render("favorites.pug", { favorites: favoritesData, role });
     } catch (error) {
         res.status(404).json({})
     }
 }
 
 const getProfile = async (req, res) => {
+    console.log(req.decoded.role);
     try {
-        const email = "edu@gmail.com" //este email habrá que capturarlo del que esté logueado en su caso
+        const email = req.decoded.email //este email habrá que capturarlo del que esté logueado en su caso
         let usersRead = await usersModels.readUsersByEmail(email);
         let [obj] = [...usersRead];
-        res.status(200).render("profile.pug", { user: obj });
+        const role = req.decoded?.role || "nologeado";
+        const old_email = req.decoded.email;
+        res.status(200).render("profile.pug", { user: obj, role, old_email});
     } catch (error) {
         res.status(404).json({})
     }
@@ -125,7 +137,8 @@ const getUsers = async (req, res) => {
         // Obtener todos los trabajos actualizados desde la base de datos
         let usersRead = await usersModels.readUsers();
 
-        res.status(200).render("users.pug", { users: usersRead });
+        const role = req.decoded?.role || "nologeado"
+        res.status(200).render("users.pug", { users: usersRead, role});
     } catch (error) {
         res.status(404).json({})
     }
@@ -152,7 +165,8 @@ const getDashboard = async (req, res) => {
         let updatedJobs = await jobService.readJobsAdmin();
         console.log(updatedJobs)
 
-        res.status(200).render("dashboard.pug", { jobs: updatedJobs });
+        const role = req.decoded?.role || "nologeado"
+        res.status(200).render("dashboard.pug", { jobs: updatedJobs, role });
     } catch (error) {
         res.status(404).json({})
     }

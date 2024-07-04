@@ -14,7 +14,7 @@ html(lang="en")
         main
             h3.mainTitle Edit Your Profile
             section.cardForms
-                form#formProfile(action='/profile' method='post')
+                form#formProfile(action='/profile' method='post' data=old_email)
                     label(for='name') Name:
                     input.name(type='text' name='name' value=`${user.name}`)
                     label(for='email') Email:

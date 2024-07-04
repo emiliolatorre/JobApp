@@ -1,5 +1,7 @@
 const express = require("express");
+require('dotenv').config();
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express(); // Initialize server
 const port = 3000;
 
@@ -10,7 +12,7 @@ const morgan = require('./middlewares/morgan');
 app.use(morgan(':method :url :status - :response-time ms :body'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 app.use(express.static('public')); // Serve static files
 app.use(express.json()); // Habilito recepción de JSON en servidor
 
@@ -23,7 +25,6 @@ const favoritesRoutes = require("./routes/favorites.routes");
 // View engine setup
 app.set('view engine', 'pug');
 app.set('views', './views');
-
 
 // API Routes
 app.use('/', webRoutes);

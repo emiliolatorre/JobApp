@@ -1,10 +1,10 @@
 const queries = {
-    createUser: `INSERT INTO users(name, email, password, role)
-    VALUES ($1, $2, $3, $4);`,
+    createUser: `INSERT INTO users(name, email, password, role, logged)
+    VALUES ($1, $2, $3, 'user', false);`,
     readUsers: `SELECT * 
     FROM users
     WHERE role = 'user';`,
-    readUsersByEmail: `SELECT name, email, password, role
+    readUsersByEmail: `SELECT name, email, password, role, logged
     FROM users
     WHERE email = $1`,
     updateUserName: `UPDATE users
