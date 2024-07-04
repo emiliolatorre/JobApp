@@ -6,6 +6,7 @@ const fragment = document.createDocumentFragment();
 
 document.addEventListener('DOMContentLoaded', () => validateForm());
 
+// evento - User CREATE
 document.addEventListener('submit', (event) => {
     if (event.target.matches('#formSignUp')) {
         event.preventDefault();
@@ -21,36 +22,37 @@ document.addEventListener('submit', (event) => {
             },
             body: JSON.stringify({ name: name, email: email, password: password, role: role })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.errors) {
-                console.error('Validation errors:', data.errors);
-                for  (i=0; i<data.errors.length; i++) {
-                    console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
-                }
-            } else {
-                console.log('Success:', data);
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
 
-                fetch('http://localhost:3000/login', {
-                    method: 'GET'
-                })
-                .then(response => response.text())
-                .then(html => {
-                    document.open();
-                    document.write(html);
-                    document.close();
-                })
-                .catch((error) => {
-                    console.error('Error:', error); 
-                });
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+                    fetch('http://localhost:3000/login', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            document.open();
+                            document.write(html);
+                            document.close();
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 });
 
+// evento - User UPDATE (by User)
 document.addEventListener('submit', (event) => {
     if (event.target.matches('#formProfile')) {
         event.preventDefault();
@@ -76,25 +78,49 @@ document.addEventListener('submit', (event) => {
     }
 });
 
+// evento - User UPDATE (by Admin)
 document.addEventListener('submit', (event) => {
-    if (event.target.matches('.editUserButton')) {
+    if (event.target.matches('#formUser')) {
         event.preventDefault();
+        const formElement = document.querySelector('#formUser');
+        const old_email = formElement.getAttribute('data-email');
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
         const role = event.target.role.value;
+        console.log(role)
 
         fetch('http://localhost:3000/api/user', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: name, email: email, password: password, role: role, old_email: "diego@gmail.com" })
+            body: JSON.stringify({ name: name, email: email, password: password, role: role, old_email: old_email })
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
-                alert('Profile updated');
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+
+                    fetch('http://localhost:3000/users', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                        alert('Profile updated');
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -102,6 +128,7 @@ document.addEventListener('submit', (event) => {
     }
 });
 
+// Evento - User DELETE (by User)
 document.addEventListener('click', (event) => {
     if (event.target.matches('#deleteButton')) {
         event.preventDefault();
@@ -114,24 +141,24 @@ document.addEventListener('click', (event) => {
             .then(data => {
                 if (data.errors) {
                     console.error('Validation errors:', data.errors);
-                    for  (i=0; i<data.errors.length; i++) {
+                    for (i = 0; i < data.errors.length; i++) {
                         console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
                     }
                 } else {
                     console.log('Success:', data);
-    
+
                     fetch('http://localhost:3000/', {
                         method: 'GET'
                     })
-                    .then(response => response.text())
-                    .then(html => {
-                        document.open();
-                        document.write(html);
-                        document.close();
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error); 
-                    });
+                        .then(response => response.text())
+                        .then(html => {
+                            document.open();
+                            document.write(html);
+                            document.close();
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
                 }
             })
             .catch((error) => {
@@ -140,11 +167,50 @@ document.addEventListener('click', (event) => {
     }
 });
 
-
+// Evento - User DELETE (by Admin)
 document.addEventListener('click', (event) => {
-    if (event.target.matches('.favButton')) {
+    if (event.target.matches('.deleteUserButton')) {
         event.preventDefault();
-        const email = "diego@gmail.com";
+        const email = event.target.value;
+
+        fetch(`http://localhost:3000/api/user?email=${email}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+
+                    fetch('http://localhost:3000/users', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+// Evento - Favorito CREATE
+document.addEventListener('click', (event) => {
+    if (event.target.matches('.favButtonCreate')) {
+        event.preventDefault();
+        const email = "edu@gmail.com";
         const jobID = event.target.value;
 
         fetch('http://localhost:3000/api/favorites', {
@@ -156,7 +222,262 @@ document.addEventListener('click', (event) => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+
+                    fetch('http://localhost:3000/favorites', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+// Evento - Favorite DELETE
+document.addEventListener('click', (event) => {
+    if (event.target.matches('.favButtonDelete')) {
+        event.preventDefault();
+        const email = "edu@gmail.com";
+        const jobID = event.target.value;
+
+        fetch(`http://localhost:3000/api/favorites?email=${email}&job_id=${jobID}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+
+                    fetch('http://localhost:3000/favorites', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+// Evento - Job CREATE
+document.addEventListener('submit', (event) => {
+    if (event.target.matches('#formDashboard')) {
+        event.preventDefault();
+        const title = event.target.title.value;
+        const description = event.target.description.value;
+        const skills = event.target.skills.value;
+        const arraySkills = [skills];
+        console.log(arraySkills)
+        const client_location = event.target.client_location.value;
+        const url = event.target.url.value;
+
+
+        fetch('http://localhost:3000/api/jobs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title: title, description: description, skills: arraySkills, client_location: client_location, url: url, source: 'admin', status: true })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+
+                    fetch('http://localhost:3000/dashboard', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+// Evento - Job DELETE
+document.addEventListener('click', (event) => {
+    if (event.target.matches('.deleteJobButton')) {
+        event.preventDefault();
+        const title = event.target.value;
+
+        fetch(`http://localhost:3000/api/jobs?title=${title}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+
+                    fetch('http://localhost:3000/dashboard', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+// evento - Job UPDATE - NO CONSIGO QUE ARRANQUE
+document.addEventListener('submit', (event) => {
+    if (event.target.matches('#formJob')) {
+        event.preventDefault();
+        console.log('boton funciona')
+        const formElement = document.querySelector('#formJob');
+        const old_title = formElement.getAttribute('data-title');
+        const title = event.target.title.value;
+        const description = event.target.description.value;
+        const skills = [event.target.skills.value];
+        const client_location = event.target.client_location.value;
+        const url = event.target.url.value;
+
+        fetch(`http://localhost:3000/api/jobs?title=${old_title}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title: title, description: description, skills: skills, client_location: client_location, url: url, source: 'admin', status: true })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                    for (i = 0; i < data.errors.length; i++) {
+                        console.log('Validation errors: ' + JSON.stringify(data.errors[i].msg));
+                    }
+                } else {
+                    console.log('Success:', data);
+
+                    fetch('http://localhost:3000/dashboard', {
+                        method: 'GET'
+                    })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                        alert('Job updated');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+// btn ir a Job Editor desde Dashboard
+document.addEventListener('click', (event) => {
+    if (event.target.matches('.goToEditJob')) {
+        event.preventDefault();
+        const job_id = event.target.value;
+        console.log(job_id)
+
+        fetch(`http://localhost:3000/job-editor`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ job_id: job_id })
+        })
+
+            .then(response => response.text()) // Cambiamos a response.text() para manejar HTML
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+// btn ir a User Editor desde User Dashboard
+document.addEventListener('click', (event) => {
+    if (event.target.matches('.goToEditUser')) {
+        event.preventDefault();
+        const email = event.target.value;
+        console.log(email)
+        console.log('probando evento gotoedit')
+
+        fetch(`http://localhost:3000/user-editor`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        })
+
+            .then(response => response.text()) // Cambiamos a response.text() para manejar HTML
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -196,7 +517,6 @@ document.addEventListener('submit', (event) => {
     if (event.target.matches('.searchKeyword')) {
         event.preventDefault();
         const keyword = event.target.keyword.value;
-        console.log('probando fetch...')
 
         fetch('http://localhost:3000/search', {
             method: 'POST',
@@ -222,7 +542,6 @@ document.addEventListener('submit', (event) => {
     if (event.target.matches('.searchSkill')) {
         event.preventDefault();
         const skill = event.target.skill.value;
-        console.log('probando fetch by skill...')
 
         fetch('http://localhost:3000/searchbyskill', {
             method: 'POST',
@@ -254,7 +573,8 @@ const validateForm = () => {
     const confirmPassword = document.getElementById('confirmPassword');
     const inputs = document.querySelectorAll('input');
     const passwordInstructions = document.getElementById('instructions');
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^.{8}$/;
 
     passwordInstructions.style.display = 'none';
 
@@ -303,7 +623,7 @@ const validateForm = () => {
             confirmPassword.setCustomValidity('');
         }
 
-        if (!isValid) {
+        if (isValid === false) {
             event.preventDefault();
         }
     });

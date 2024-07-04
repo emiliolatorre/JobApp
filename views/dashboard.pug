@@ -12,9 +12,9 @@ html(lang="en")
     body
         include ./header.pug
         main
-            section
-                h3.mainTitle Create a New Job
-                form#formDashboard.card(action='/dashboard' method='post')
+            h3.mainTitle Create a New Job
+            section.cardForms
+                form#formDashboard
                     label(for='title') Job Title:
                     input(type='text' name='title')
                     label(for='description') Description:
@@ -28,25 +28,31 @@ html(lang="en")
                     section.cardButtons
                         button#createJobButton(type='submit') Create Job
 
-                h3.mainTitle Your Created Jobs
+            h3.mainTitle Jobs created by Admins
+            section.card100width
                 if jobs.length > 0
                     each job in jobs
                         article.card
                             h3.jobTitle #{job.title}
                             p.description #{job.description}
-                            p.skillsTitle Skills:
-                            section.skills
-                                each skill in job.skills
-                                    p #{skill}
-                            p.locationTitle Client Location:
-                            p.location #{job.client_location}
+                            section.detailsContainer
+                                section.skillsContainer
+                                    p.skillsTitle Skills:
+                                    div.skills
+                                        each skill in job.skills
+                                            p #{skill}
+                                section.locationContainer
+                                    p.locationTitle Client Location:
+                                    p.location #{job.client_location}
                             section.cardButtons
                                 a(href=`${job.url}` target='_blank')
                                     button.jobButton(type='button') View Offer
-                                button.goToEditJob.editButton(type='button' data-jobId=`${job._id}`) Edit
-                                button.deleteJobButton.deleteButton(type='button' data-jobId=`${job._id}`) Delete
+                                button.goToEditJob.editButton(type='button' value=`${job._id}`)
+                                    <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+                                button.deleteJobButton.deleteButton(type='button' value=`${job.title}`)
+                                    <i class="fa-solid fa-trash-can" style="color: #ffffff;"></i>
                 else
-                    p You didn´t create any job yet
+                    p There are no jobs created by Admins yet
 
         include ./footer.pug
 

@@ -131,14 +131,47 @@ const getUsers = async (req, res) => {
     }
 }
 
+const getEditUser = async (req, res) => {
+    try {
+        const email = req.body.email
+        console.log(`progando getedituser ${email}`)
+        let usersRead = await usersModels.readUsersByEmail(email);
+        let [obj] = [...usersRead];
+        console.log('progando getedituser')
+        console.log(obj)
+        res.status(200).render("userEdit.pug", { user: obj });
+    } catch (error) {
+        res.status(404).json({})
+    }
+}
+
 const getDashboard = async (req, res) => {
     try {
         // Obtener todos los trabajos actualizados desde la base de datos
         const keyword = req.body.keyword || null;
-        let updatedJobs = await jobService.readJobs(keyword);
+        let updatedJobs = await jobService.readJobsAdmin();
         console.log(updatedJobs)
 
         res.status(200).render("dashboard.pug", { jobs: updatedJobs });
+    } catch (error) {
+        res.status(404).json({})
+    }
+}
+
+const getEditJob = async (req, res) => {
+    try {
+        // Obtener todos los trabajos actualizados desde la base de datos
+        const id = [req.body.job_id] || null;
+        console.log('probando id array...')
+        console.log(id)
+        console.log('dejando de probar id array...')
+
+        let toEditJob = await jobService.readJobsByID(id);
+        const [objJob] = [...toEditJob]
+        console.log(toEditJob)
+        console.log(objJob)
+
+        res.status(200).render("jobEdit.pug", { job: objJob });
     } catch (error) {
         res.status(404).json({})
     }
@@ -153,5 +186,7 @@ module.exports = {
     getFavorites,
     getProfile,
     getUsers,
-    getDashboard
+    getEditUser,
+    getDashboard,
+    getEditJob
 }
