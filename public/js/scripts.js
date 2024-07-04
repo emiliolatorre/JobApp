@@ -90,6 +90,10 @@ document.addEventListener('submit', (event) => {
             .then(data => {
                 console.log('Found user: ', data);
 
+                if (data.length <= 0) {
+                    return alert("Incorrect user or password");
+                }
+
                 fetch('https://jobapp-w73i.onrender.com/api/user/login', {
                     method: 'POST',
                     headers: {
