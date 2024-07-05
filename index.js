@@ -32,6 +32,8 @@ app.use('/api/jobs', jobsRoutes);
 app.use('/api/user', usersRoutes);
 app.use('/api/favorites', favoritesRoutes);
 
-app.listen(port, () => {
-    console.log(`Job App listening on https://jobapp-w73i.onrender.com:${port}`);
+const server = app.listen(port, () => {
+    console.log(`Example app listening on http://localhost:${port}`);
 });
+
+module.exports = server;
