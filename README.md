@@ -56,6 +56,10 @@ Wireframes iniciales para el diseño de las diferentes vistas a generar en Pug.
     - Para generar la documentación utilizando JSDoc:
     ```bash
     npm run docs
+5. **Testing de CRUDs:**
+    - Para realizar testing utilizando Jest:
+    ```bash
+    npm test
 
 ## Estructura de Carpetas
 La aplicación sigue una estructura organizada para facilitar el mantenimiento y escalabilidad:
@@ -89,9 +93,6 @@ La aplicación sigue una estructura organizada para facilitar el mantenimiento y
 
 ## Documentación API
 Documentación API en el siguiente [link de Swagger](https://jobapp-w73i.onrender.com/api-docs/)
-
-## Testing
-Wireframes inicial
 
 ## Contribución
 Si deseas contribuir a este proyecto, por favor sigue los estándares de código, haz fork del repositorio y envía tus pull requests.
