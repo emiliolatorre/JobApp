@@ -73,9 +73,10 @@ La aplicación sigue una estructura organizada para facilitar el mantenimiento y
   - Actualización de la base de datos con nuevas ofertas de trabajo mediante scraping.
 
 ## BBDD . Modelo Entidad Relacion y Modelo Lógico
-Debida al diferente uso del dato, hemos divido el almacenamiento de los jobs en MongoDB y users / favoritos en PosgreSQL
-![diJobApp - BBDD.drawio.png](public/assets/JobApp - BBDD.drawio.png)
-![diagrama lógico de tablas](<public/assets/JobApp - Diagrama Lógico.png>)
+Debida al diferente uso del dato, hemos divido el almacenamiento de los jobs en MongoDB y users / favoritos en PosgreSQL, funcionando en la práctica la tabla SQL de favoritos como una tabla intermedio entre la tabla de Users y la collection Jobs.
+
+![JobApp - BBDD.drawio.png](<public/assets/JobApp - BBDD.drawio.png>)
+
 ## Diseño de producto
 ![diseño de vistas](public/assets/JobApp.drawio-1.png)
 ![diseño de vistas](public/assets/JobApp.drawio-2.png)
