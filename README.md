@@ -25,13 +25,39 @@ JobApp es una aplicación diseñada para buscar y gestionar anuncios de proyecto
 ## Diagrama de arquitectura
 ![diagrama arquitectura](<public/assets/Diagrama de arquitectura.drawio.png>)
 
+## BBDD . Modelo Entidad Relacion y Modelo Lógico
+Debida al diferente uso del dato, hemos divido el almacenamiento de los jobs en MongoDB y users / favoritos en PosgreSQL, funcionando en la práctica la tabla SQL de favoritos como una tabla intermedio entre la tabla de Users y la collection Jobs.
 
+![JobApp - BBDD.drawio.png](<public/assets/JobApp - BBDD.drawio.png>)
 
+## Diseño de producto
+Wireframes iniciales para el diseño de las diferentes vistas a generar en Pug.
+![JobApp - Diseño de Producto.drawio](<public/assets/JobApp - Diseño de Producto.drawio.png>)
 
+## Funcionalidades Principales
+![banner](<public/assets/WB-SEO-850x446 (1).png>)
+- **Nivel Usuario:**
+  - Registro, inicio de sesión y gestión de perfil de usuario.
+  - Búsqueda y filtrado de anuncios por habilidades.
+  - Los ussuarios pueden marcar y gestionar favoritos de anuncios.
+- **Nivel Administrador:**
+  - Creación, edición y eliminación de ofertas de trabajo.
+  - Creación, edición y eliminación de usuarios.
+  - Actualización de la base de datos con nuevas ofertas de trabajo mediante scraping.
 
-
-
-
+## Configuración y Uso
+1. **Instalación de Dependencias:**
+   ```bash
+   npm install
+2. **Variables de Entorno:**
+    - Crea un archivo `.env` en el directorio raíz y configura las variables necesarias como `PORT`, `DB_URL`, etc.
+3. **Ejecución:**
+    ```bash
+    npm start
+4. **Documentación:**
+    - Para generar la documentación utilizando JSDoc:
+    ```bash
+    npm run docs
 
 ## Estructura de Carpetas
 La aplicación sigue una estructura organizada para facilitar el mantenimiento y escalabilidad:
@@ -61,44 +87,14 @@ La aplicación sigue una estructura organizada para facilitar el mantenimiento y
 - `jsdoc.json`: Configuración para generación de documentación con JSDoc.
 - `package.json`: Archivos de configuración de npm.
 - `queries.sql`: Archivo con consultas SQL.
-## Funcionalidades Principales
-![banner](<public/assets/WB-SEO-850x446 (1).png>)
-- **Nivel Usuario:**
-  - Registro, inicio de sesión y gestión de perfil de usuario.
-  - Búsqueda y filtrado de anuncios por habilidades.
-  - Los ussuarios pueden marcar y gestionar favoritos de anuncios.
-- **Nivel Administrador:**
-  - Creación, edición y eliminación de ofertas de trabajo.
-  - Creación, edición y eliminación de usuarios.
-  - Actualización de la base de datos con nuevas ofertas de trabajo mediante scraping.
 
-## BBDD . Modelo Entidad Relacion y Modelo Lógico
-Debida al diferente uso del dato, hemos divido el almacenamiento de los jobs en MongoDB y users / favoritos en PosgreSQL, funcionando en la práctica la tabla SQL de favoritos como una tabla intermedio entre la tabla de Users y la collection Jobs.
-
-![JobApp - BBDD.drawio.png](<public/assets/JobApp - BBDD.drawio.png>)
-
-## Diseño de producto
-![diseño de vistas](public/assets/JobApp.drawio-1.png)
-![diseño de vistas](public/assets/JobApp.drawio-2.png)
-![diseño de vistas](public/assets/JobApp.drawio-3.png)
-## Configuración y Uso
-1. **Instalación de Dependencias:**
-   ```bash
-   npm install
-2. **Variables de Entorno:**
-    - Crea un archivo `.env` en el directorio raíz y configura las variables necesarias como `PORT`, `DB_URL`, etc.
-3. **Ejecución:**
-    ```bash
-    npm start
-4. **Documentación:**
-    - Para generar la documentación utilizando JSDoc:
-    ```bash
-    npm run docs
 ## Contribución
 Si deseas contribuir a este proyecto, por favor sigue los estándares de código, haz fork del repositorio y envía tus pull requests.
+
 ## Autores
 - Diego Blázquez Rosado
 - Emilio Latorre Guerra
 - Eduardo Fatou Cerrato
+
 ## Licencia
 GNU General Public License (GPL)
