@@ -1,7 +1,10 @@
+![portada](public/assets/JobApp.png)
 # JobApp
-JobApp es una aplicación diseñada para buscar y gestionar anuncios de proyectos freelance de todo el mundo. Permite a los usuarios encontrar proyectos freelance de varios portales de forma rápida y sencilla, interactuar con los anuncios, guardarlos como favoritos y redirigir a sus ofertas de trabajo originales. Además, los administradores pueden crear y editar tanto anuncios como usuarios.
-![portada](public/assets/freelance-job.png)
-### Objetivos
+JobApp es una aplicación diseñada para buscar y gestionar anuncios de proyectos freelance de todo el mundo, provinentes de otras webs o creados por Admin. La app cuenta con dos roles. Los Users podrán interacturar con los proyectos pudiendo guardar en favoritos y redirigir a varios portales. Los Admin podrán crear, editar y eliminar proyectos y usuarios. JobApp está desplegada en render.
+
+[presentacion de negocio](https://www.canva.com/design/DAGJyoC0uiI/qm-zwJaakfXQAHNhzuGZ0A/view?utm_content=DAGJyoC0uiI&utm_campaign=designshare&utm_medium=link&utm_source=editor "presentacion de negocio")
+
+## Objetivos
 - ✅ **Diseño del Frontend:** Diseño responsive, mobile-first, semántica HTML5.
 - ✅ **Vistas con Pug:** Generación de vistas utilizando la librería Pug.
 - ✅ **Endpoints Web:**  Implementación de los 7 endpoints web solicitados.
@@ -12,6 +15,20 @@ JobApp es una aplicación diseñada para buscar y gestionar anuncios de proyecto
 - ✅ **Bases de datos:**  Configuración y despliegue de bases de datos en MongoDB y PostgreSQL.
 - ✅ **Github:** Uso de ramas, forks y pull requests para la gestión del proyecto.
 - ✅ **Despliegue:** Despliegue de la aplicación en Render, con bases de datos en Render y Atlas.
+
+## Tecnologías
+- ⚙️ **Frontend:** HTML, CSS, JavaScript, librería Pug.
+- ⚙️ **Backend:** Node.js, Express, API Rest, Express Web Scrapping.
+- ⚙️ **BBDD:** MongoDB, PosgreSQL.
+- ⚙️ **Cloud:** MongoDB Atlas, Render.
+
+
+
+
+
+
+
+
 ## Estructura de Carpetas
 La aplicación sigue una estructura organizada para facilitar el mantenimiento y escalabilidad:
 - **config:** Contiene archivos de configuración para bases de datos MongoDB y PostgreSQL.
