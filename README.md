@@ -59,7 +59,7 @@ Wireframes iniciales para el diseño de las diferentes vistas a generar en Pug.
 5. **Testing de CRUDs:**
     - Para realizar testing utilizando Jest:
     ```bash
-    npm test
+     npm test
 
 ## Estructura de Carpetas
 La aplicación sigue una estructura organizada para facilitar el mantenimiento y escalabilidad:
