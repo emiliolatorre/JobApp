@@ -1,8 +1,6 @@
 ![portada](public/assets/JobApp.png)
 # JobApp
-JobApp es una aplicación diseñada para buscar y gestionar anuncios de proyectos freelance de todo el mundo, provinentes de otras webs o creados por Admin. La app cuenta con dos roles. Los Users podrán interacturar con los proyectos pudiendo guardar en favoritos y redirigir a varios portales. Los Admin podrán crear, editar y eliminar proyectos y usuarios. JobApp está desplegada en render.
-
-[presentacion de negocio](https://www.canva.com/design/DAGJyoC0uiI/qm-zwJaakfXQAHNhzuGZ0A/view?utm_content=DAGJyoC0uiI&utm_campaign=designshare&utm_medium=link&utm_source=editor "presentacion de negocio")
+JobApp es una aplicación diseñada para buscar y gestionar anuncios de proyectos freelance de todo el mundo, provinentes de otras webs o creados por Admin. La app cuenta con dos roles. Los Users podrán interacturar con los proyectos pudiendo guardar en favoritos y redirigir a varios portales. Los Admin podrán crear, editar y eliminar proyectos y usuarios. JobApp está desplegada en render. [Presentacion de negocio](https://www.canva.com/design/DAGJyoC0uiI/qm-zwJaakfXQAHNhzuGZ0A/view?utm_content=DAGJyoC0uiI&utm_campaign=designshare&utm_medium=link&utm_source=editor "presentacion de negocio")
 
 ## Objetivos
 - ✅ **Diseño del Frontend:** Diseño responsive, mobile-first, semántica HTML5.
@@ -32,10 +30,10 @@ Debida al diferente uso del dato, hemos divido el almacenamiento de los jobs en 
 
 ## Diseño de producto
 Wireframes iniciales para el diseño de las diferentes vistas a generar en Pug.
+
 ![JobApp - Diseño de Producto.drawio](<public/assets/JobApp - Diseño de Producto.drawio.png>)
 
 ## Funcionalidades Principales
-![banner](<public/assets/WB-SEO-850x446 (1).png>)
 - **Nivel Usuario:**
   - Registro, inicio de sesión y gestión de perfil de usuario.
   - Búsqueda y filtrado de anuncios por habilidades.
@@ -81,12 +79,19 @@ La aplicación sigue una estructura organizada para facilitar el mantenimiento y
 - **utils:** Utilidades como `scraper.js`.
 - **validators:** Validadores para diferentes entidades como favoritos, anuncios y usuarios.
 - **views:** Vistas en formato Pug para páginas de la aplicación.
+
 ### Archivos en carpeta raíz
 - `index.js`: Archivo principal de la aplicación.
 - `.env`: Archivo de configuración de variables de entorno.
 - `jsdoc.json`: Configuración para generación de documentación con JSDoc.
 - `package.json`: Archivos de configuración de npm.
 - `queries.sql`: Archivo con consultas SQL.
+
+## Documentación API
+Documentación API en el siguiente [link de Swagger](https://jobapp-w73i.onrender.com/api-docs/)
+
+## Testing
+Wireframes inicial
 
 ## Contribución
 Si deseas contribuir a este proyecto, por favor sigue los estándares de código, haz fork del repositorio y envía tus pull requests.
