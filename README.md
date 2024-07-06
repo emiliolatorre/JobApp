@@ -22,6 +22,10 @@ JobApp es una aplicación diseñada para buscar y gestionar anuncios de proyecto
 - ⚙️ **BBDD:** MongoDB, PosgreSQL.
 - ⚙️ **Cloud:** MongoDB Atlas, Render.
 
+## Diagrama de arquitectura
+![diagrama arquitectura](<public/assets/Diagrama de arquitectura.drawio.png>)
+
+
 
 
 
@@ -67,8 +71,7 @@ La aplicación sigue una estructura organizada para facilitar el mantenimiento y
   - Creación, edición y eliminación de ofertas de trabajo.
   - Creación, edición y eliminación de usuarios.
   - Actualización de la base de datos con nuevas ofertas de trabajo mediante scraping.
-## Diagrama de arquitectura
-![diagrama arquitectura](<public/assets/Diagrama de arquitectura.drawio.png>)
+
 ## Modelos lógicos
 ![ERD](public/assets/DIagrama_Entidad_Relación3.jpg)
 ![diagrama lógico de tablas](<public/assets/JobApp - Diagrama Lógico.png>)
